@@ -20,20 +20,20 @@ Plug_ID| Collection Date |Species|
 
 ## RiboFree
 
-[Zymo-Seq RiboFree Total RNA Library Prep Kit](https://meschedl.github.io/MESPutnam_Open_Lab_Notebook/zribo-lib-RNA-second/)
+[Zymo-Seq RiboFree Total RNA Library Prep Kit](https://meschedl.github.io/MESPutnam_Open_Lab_Notebook/zribo-lib-RNA-second/) Sequenced by Zymo
 
 
 ## PolyA
 
-Submitted to Genewiz and prepared with the Illumina TruSeq Stranded mRNA Sample Preparation Illumina Protocol using polyA enrichment
+Prepared using polyA enrichment with the [Illumina TruSeq Stranded mRNA Sample Preparation Protocol]() by Genewiz and sequenced by Genewiz
 
 ## Sequencing
 
-Plug_ID| Raw Reads RiboFree |Raw Reads PolyA|
----|---|---|
-1041|	16487768	|18637582|
-1471|	10755630	|7350473|
-1637|	13534820	|7188549|
-1101|	10275396	|21636831|
-1548|	16601774	|17651137|
-1628|	13440121	|21647915|
+Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|
+---|---|---|---|
+1041|	1 | 16487768	|18637582|
+1471|	2 | 10755630	|7350473|
+1637|	3 | 13534820	|7188549|
+1101|	4 | 10275396	|21636831|
+1548|	5 | 16601774	|17651137|
+1628|	6 | 13440121	|21647915|
