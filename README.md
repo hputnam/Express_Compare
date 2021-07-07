@@ -25,7 +25,7 @@ Plug_ID| Collection Date |Species|
 
 ## PolyA
 
-Prepared using polyA enrichment with the [Illumina TruSeq Stranded mRNA Sample Preparation Protocol]() by Genewiz and sequenced by Genewiz
+Prepared using polyA enrichment with the [Illumina TruSeq Stranded mRNA Sample Preparation Protocol](https://github.com/hputnam/Express_Compare/blob/main/truseq_stranded_mrna_protocol.pdf) by Genewiz and sequenced by Genewiz
 
 ## Sequencing
 
