@@ -1,6 +1,7 @@
 # RNA-seq Kallisto Pipeline
 ## Montipora capitata and Pocillopora acuta
 https://www.ncbi.nlm.nih.gov/bioproject/PRJNA744524 <br>
+Nitya Nadgir <br>
 Referenced from Hailey McKelvie and Jack Freeman, Tufts University [here](https://github.com/hputnam/Tufts_URI_CSM_RNASeq/blob/master/Connelly/Kallisto_pipeline/Connelly_kallisto_pipeline.md)
 
 ### 1) make directories and download data
