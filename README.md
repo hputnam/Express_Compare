@@ -44,7 +44,7 @@ Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|
 Plug_ID| Ribofree_ID | NCBI BioSample | Raw Reads RiboFree |Raw Reads PolyA|Riobfree trimmomatic|Riobfree fastp |PolyA trimmomatic|PolyA fastp
 ---|---|---|---|---|---|---|---|---|
 1041|	1 |SRR |16487768	|18637582|x|x|x|x|
-1471|	2 |SRR |10755630	|7350473|x|x|x|x|
+1471|	2 |SRR15089754 |10755630	|7350473|x|x|x|x|
 1637|	3 |SRR |13534820	|7188549|x|x|x|x|
 1101|	4 |SRR |10275396	|21636831|x|x|x|x|
 1548|	5 |SRR |16601774	|17651137|x|x|x|x|
