@@ -42,7 +42,7 @@ Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|
 
 ##fastp  
 Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|cleaned reads
----|---|---|---|
+---|---|---|---|---|
 1041|	1 | 16487768	|18637582|x|
 1471|	2 | 10755630	|7350473|x|
 1637|	3 | 13534820	|7188549|x|
@@ -53,7 +53,7 @@ Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|cleaned reads
 
 ##trimmomatic  
 Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|cleaned reads
----|---|---|---|
+---|---|---|---|---|
 1041|	1 | 16487768	|18637582|x|
 1471|	2 | 10755630	|7350473|x|
 1637|	3 | 13534820	|7188549|x|
