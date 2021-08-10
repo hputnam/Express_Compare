@@ -38,9 +38,9 @@ Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|
 1548|	5 | 16601774	|17651137|
 1628|	6 | 13440121	|21647915|
 
-# cleaning/trimming
+# cleaning/trimming  
 
-##fastp
+##fastp  
 Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|cleaned reads
 ---|---|---|---|
 1041|	1 | 16487768	|18637582|x|
@@ -51,7 +51,7 @@ Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|cleaned reads
 1628|	6 | 13440121	|21647915|x|
 
 
-##trimmomatic
+##trimmomatic  
 Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|cleaned reads
 ---|---|---|---|
 1041|	1 | 16487768	|18637582|x|
