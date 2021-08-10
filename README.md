@@ -41,7 +41,7 @@ Plug_ID| Ribofree_ID | Raw Reads RiboFree |Raw Reads PolyA|
 # cleaning/trimming  
 
 
-Plug_ID| NCBI PolyA| Ribofree_ID | NCBI RiboFree | Raw Reads RiboFree |Raw Reads PolyA|Riobfree trimmomatic|Riobfree fastp |PolyA trimmomatic|PolyA fastp
+Plug_ID| NCBI PolyA| Ribofree_ID | NCBI RiboFree | Raw Reads RiboFree |Raw Reads PolyA|Ribofree trimmomatic|Riobfree fastp |PolyA trimmomatic|PolyA fastp
 ---|---|---|---|---|---|---|---|---|---|
 1041|SRR15089755|	1 |SRR |16487768	|18637582|x|x|x|x|
 1471|	SRR |2 |SRR15089754 |10755630	|7350473|x|x|x|x|
