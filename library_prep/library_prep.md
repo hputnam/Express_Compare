@@ -231,7 +231,7 @@ Trimmomatic arguments:
     * ```quality```: minimum quality required to keep a base
 * ```MINLEN<length>```: removes reads that fall below the specified minimum length 
 
-d) Run fastp 
+d) Run fastp <br>
 Reference: Erin Chille
 ```
 #!/bin/bash
