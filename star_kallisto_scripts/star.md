@@ -1,6 +1,7 @@
-# RNA-seq STAR Pipeline
+# RNA-seq Kallisto Pipeline
 ## Montipora capitata and Pocillopora acuta
-https://www.ncbi.nlm.nih.gov/bioproject/PRJNA744524 <br>
+https://www.ncbi.nlm.nih.gov/bioproject/PRJNA744524
+Megan Gelement and Nitya Nadgir <br>
 Reference: Jill Ashey STAR pipeline
 
 ### 1) Get the data
@@ -94,32 +95,20 @@ b) create genome index for M. cap: ```mcap_genome_index.sh```
 #!/bin/bash
 #SBATCH --mem=64G
 
-sed 's/CDS/exon/g' Mcap.GFFannotation.gff > Mcap.exons.GFFannotation.gff
-
 STAR --runThreadN 10 \
 --runMode genomeGenerate \
---genomeDir /r/corals/Nitya/pipelines/genome_indices/ \
+--genomeDir //r/corals/Nitya/pipelines/star_output/genome_indices/mcap \
 --genomeFastaFiles /r/corals/Nitya/pipelines/genomes/mcap_genome.fa \
---sjdbGTFfile /r/corals/Nitya/pipelines/annotations/Mcap.GFFannotation.fixed.gff
-----sjdbGTFfeatureExon CDS
+--sjdbGTFfile /r/corals/Nitya/pipelines/annotations/Mcap.exons.GFFannotation.gff
 ```
 
 c) create genome index for P. acuta
 ```
 STAR --runThreadN 10 \
 --runMode genomeGenerate \
---genomeDir /r/corals/Nitya/pipelines/genome_indices/ \
+--genomeDir /r/corals/Nitya/pipelines/star_output/genome_indices/pacuta \
 --genomeFastaFiles /r/corals/Nitya/pipelines/genomes/pacuta_genome.fasta \
---sjdbGTFfile /r/corals/Nitya/pipelines/annotations/pacuta.gff
-```
---genomeChrBinNbits is calculated using the following formula: 
-```
-min(18, log2(GenomeLength/NumberOfReferences))
-```
-
-to find GenomeLength/NumberOfReferences [here](https://www.biostars.org/p/1758/)
-```
-awk '{/>/&&++a||b+=length()}END{print b/a}' [genome].fa[sta]
+--sjdbGTFfile /r/corals/Nitya/pipelines/annotations/Structural_annotation_experimental.gff
 ```
 
 ### 3) Run STAR
@@ -177,9 +166,11 @@ done
 
 b) run Stringtie
 ```
+#!/bin/bash
+
 # For mcap
 stringtie -p 1 -G /r/corals/Nitya/pipelines/annotations/Mcap.exons.GFFannotation.gff -o output_mcap.gff mcap.bam
 
 # For pacuta
-stringtie -p 1 -G /r/corals/Nitya/pipelines/annotations/pacuta.gff -o output_pacuta.gff pacuta.bam
+stringtie -p 1 -G /r/corals/Nitya/pipelines/annotations/Structural_annotation_experimental.gff -o output_pacuta.gff pacuta.bam
 ```
