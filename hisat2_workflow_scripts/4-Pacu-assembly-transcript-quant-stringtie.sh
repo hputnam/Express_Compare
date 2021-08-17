@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="stringtie"
+#SBATCH --job-name="Pacu_stringtie"
 #SBATCH -t 100:00:00
 #SBATCH --export=/opt/software/StringTie/2.1.4-GCC-9.3.0/bin/prepDE.py
 #SBATCH --mail-type=BEGIN,END,FAIL
