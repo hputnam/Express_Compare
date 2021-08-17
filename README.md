@@ -32,8 +32,8 @@ Prepared using polyA enrichment with the [Illumina TruSeq Stranded mRNA Sample P
 ## cleaning/trimming  
 
 
-Plug_ID| Ribofree_ID |NCBI PolyA|Raw Reads PolyA|PolyA trimmomatic|PolyA fastp |NCBI RiboFree | Raw Reads RiboFree |Ribofree trimmomatic|Ribofree fastp 
----|---|---|---|---|---|---|---|---|---|---|
+Plug_ID| Ribofree_ID |NCBI PolyA|Raw Reads PolyA|PolyA trimmomatic|PolyA fastp |NCBI RiboFree | Raw Reads RiboFree |Ribofree trimmomatic|Ribofree fastp|   
+---|---|---|---|---|---|---|---|---|---|
 1041|Sample1|SRR15089756 |18637582 |11415345|16139150 |SRR15089763 |16487768 |15373749|13708087|
 1471|Sample2|	SRR15089755 |16990028|8494238|14192707 |SRR15089762 |10755630|9639555|10040582|8916067|
 1637|Sample3|	SRR15089764 |16853810 |9124785|14370470|SRR15089761 |13534820 |9665261|12530595|10925168|
