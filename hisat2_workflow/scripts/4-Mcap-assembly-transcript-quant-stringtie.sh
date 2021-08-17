@@ -5,8 +5,8 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=erin_chille@uri.edu
 #SBATCH --exclusive
-#SBATCH --nodes 1 --ntasks-per-node=20
 #SBATCH --mem=250GB
+#SBATCH --nodes 1 --ntasks-per-node=20
 #SBATCH -D /data/putnamlab/erin_chille/Express_Compare
 
 ##This script is to assemble and quantify gene counts from the RNA sequences from M. capitata samples prepped in two ways.
@@ -33,7 +33,7 @@ done
 echo "Assembly complete! Starting assembly evaluation." $(date)
 
 cd "$base"/"$out" #change working dir
-for id in "${ids[@]}"; do echo -e "$id""\t""$base""/""$out""$id"".gtf" >> Mcap_samplelist.txt; done #Make mergelist
+for id in "${ids[@]}"; do echo -e "$id""\t""$base""/""$out""/""$id"".gtf" >> Mcap_samplelist.txt; done #Make mergelist
 for id in "${ids[@]}"; do echo -e "$base""/""$out""/""$id"".gtf" >> Mcap_mergelist.txt; done #Make samplelist
 
 gffcompare -r "$base"/ref/Mcap.GFFannotation.fixed.gff -R -G -V -o Mcap -i Mcap_mergelist.txt #Compute the accuracy and precision of assembly
