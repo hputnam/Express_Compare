@@ -1,0 +1,57 @@
+Loading programs Tue Aug  3 14:05:08 EDT 2021
+Align reads to the indexed reference files (0-download-ref-files.sh) and save alignments in a sorted bam file. Tue Aug  3 14:05:09 EDT 2021
+Starting alignment of sample 1101 Tue Aug  3 14:05:09 EDT 2021
+7308996 reads; of these:
+  7308996 (100.00%) were unpaired; of these:
+    1628473 (22.28%) aligned 0 times
+    4735813 (64.79%) aligned exactly 1 time
+    944710 (12.93%) aligned >1 times
+77.72% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for 1101 Tue Aug  3 16:01:21 EDT 2021
+Starting alignment of sample 1548 Tue Aug  3 16:01:21 EDT 2021
+5958710 reads; of these:
+  5958710 (100.00%) were unpaired; of these:
+    2066676 (34.68%) aligned 0 times
+    3250248 (54.55%) aligned exactly 1 time
+    641786 (10.77%) aligned >1 times
+65.32% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for 1548 Tue Aug  3 17:01:36 EDT 2021
+Starting alignment of sample 1628 Tue Aug  3 17:01:37 EDT 2021
+7731068 reads; of these:
+  7731068 (100.00%) were unpaired; of these:
+    1956404 (25.31%) aligned 0 times
+    4802192 (62.12%) aligned exactly 1 time
+    972472 (12.58%) aligned >1 times
+74.69% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for 1628 Tue Aug  3 18:18:12 EDT 2021
+Starting alignment of sample Sample4 Tue Aug  3 18:18:12 EDT 2021
+597277 reads; of these:
+  597277 (100.00%) were unpaired; of these:
+    202888 (33.97%) aligned 0 times
+    283766 (47.51%) aligned exactly 1 time
+    110623 (18.52%) aligned >1 times
+66.03% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for Sample4 Tue Aug  3 18:29:13 EDT 2021
+Starting alignment of sample Sample5 Tue Aug  3 18:29:13 EDT 2021
+831040 reads; of these:
+  831040 (100.00%) were unpaired; of these:
+    241419 (29.05%) aligned 0 times
+    425649 (51.22%) aligned exactly 1 time
+    163972 (19.73%) aligned >1 times
+70.95% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for Sample5 Tue Aug  3 18:43:56 EDT 2021
+Starting alignment of sample Sample6 Tue Aug  3 18:43:56 EDT 2021
+649237 reads; of these:
+  649237 (100.00%) were unpaired; of these:
+    179219 (27.60%) aligned 0 times
+    341670 (52.63%) aligned exactly 1 time
+    128348 (19.77%) aligned >1 times
+72.40% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for Sample6 Tue Aug  3 18:52:32 EDT 2021
+HISAT2 complete. Tue Aug  3 18:52:32 EDT 2021

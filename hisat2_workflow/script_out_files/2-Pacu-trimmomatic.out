@@ -1,0 +1,43 @@
+To execute Trimmomatic run: java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.38.jar
+
+
+STEP 2: TRIMMOMATIC 
+ Trimming fastq files Tue Aug 3 12:34:54 EDT 2021
+TrimmomaticPE: Started with arguments:
+ -phred33 Sample1_R1.fastq.gz Sample1_R2.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample1_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample1_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample1_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample1_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 16487768 Both Surviving: 15373749 (93.24%) Forward Only Surviving: 598903 (3.63%) Reverse Only Surviving: 219998 (1.33%) Dropped: 295118 (1.79%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 Sample2_R1.fastq.gz Sample2_R2.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample2_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample2_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample2_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample2_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 10755630 Both Surviving: 10040582 (93.35%) Forward Only Surviving: 413738 (3.85%) Reverse Only Surviving: 119936 (1.12%) Dropped: 181374 (1.69%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 Sample3_R1.fastq.gz Sample3_R2.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample3_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample3_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample3_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample3_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 13534820 Both Surviving: 12530595 (92.58%) Forward Only Surviving: 589838 (4.36%) Reverse Only Surviving: 167725 (1.24%) Dropped: 246662 (1.82%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 Sample4_R1.fastq.gz Sample4_R2.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample4_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample4_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample4_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample4_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 10275396 Both Surviving: 9444420 (91.91%) Forward Only Surviving: 487683 (4.75%) Reverse Only Surviving: 109594 (1.07%) Dropped: 233699 (2.27%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 Sample5_R1.fastq.gz Sample5_R2.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample5_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample5_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample5_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample5_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 16601774 Both Surviving: 15532372 (93.56%) Forward Only Surviving: 590011 (3.55%) Reverse Only Surviving: 241029 (1.45%) Dropped: 238362 (1.44%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 Sample6_R1.fastq.gz Sample6_R2.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample6_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample6_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample6_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/Sample6_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 13440121 Both Surviving: 12585896 (93.64%) Forward Only Surviving: 493530 (3.67%) Reverse Only Surviving: 155707 (1.16%) Dropped: 204988 (1.53%)
+TrimmomaticPE: Completed successfully
+/var/spool/slurmd/job1923258/slurm_script: line 61: syntax error near unexpected token `('
+/var/spool/slurmd/job1923258/slurm_script: line 61: `echo -e "\n STEP 3 (Trimming and QC) COMPLETE" $(date)'

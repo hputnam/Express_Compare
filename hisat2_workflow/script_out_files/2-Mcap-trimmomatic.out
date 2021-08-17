@@ -1,0 +1,1063 @@
+To execute Trimmomatic run: java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.38.jar
+
+
+STEP 2: TRIMMOMATIC 
+ Trimming fastq files Tue Aug 3 13:04:25 EDT 2021
+TrimmomaticPE: Started with arguments:
+ -phred33 1041_R1_001.fastq.gz 1041_R2_001.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1041_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1041_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1041_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1041_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 18637582 Both Surviving: 11415345 (61.25%) Forward Only Surviving: 7158587 (38.41%) Reverse Only Surviving: 27638 (0.15%) Dropped: 36012 (0.19%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 1471_R1_001.fastq.gz 1471_R2_001.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1471_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1471_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1471_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1471_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 16990028 Both Surviving: 8494238 (50.00%) Forward Only Surviving: 8387783 (49.37%) Reverse Only Surviving: 55644 (0.33%) Dropped: 52363 (0.31%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 1637_R1_001.fastq.gz 1637_R2_001.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1637_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1637_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1637_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1637_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 16853810 Both Surviving: 9124785 (54.14%) Forward Only Surviving: 7633859 (45.29%) Reverse Only Surviving: 52064 (0.31%) Dropped: 43102 (0.26%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 1101_R1_001.fastq.gz 1101_R2_001.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1101_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1101_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1101_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1101_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 21636831 Both Surviving: 14279432 (66.00%) Forward Only Surviving: 7289061 (33.69%) Reverse Only Surviving: 19935 (0.09%) Dropped: 48403 (0.22%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 1548_R1_001.fastq.gz 1548_R2_001.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1548_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1548_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1548_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1548_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 17651137 Both Surviving: 11642352 (65.96%) Forward Only Surviving: 5942208 (33.66%) Reverse Only Surviving: 16502 (0.09%) Dropped: 50075 (0.28%)
+TrimmomaticPE: Completed successfully
+TrimmomaticPE: Started with arguments:
+ -phred33 1628_R1_001.fastq.gz 1628_R2_001.fastq.gz /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1628_1P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1628_1U /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1628_2P /data/putnamlab/erin_chille/Express_Compare/fastq/trimmed/1628_2U ILLUMINACLIP:/data/putnamlab/erin_chille/Express_Compare/fasta/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 21647915 Both Surviving: 13860676 (64.03%) Forward Only Surviving: 7711033 (35.62%) Reverse Only Surviving: 20035 (0.09%) Dropped: 56171 (0.26%)
+TrimmomaticPE: Completed successfully
+
+Trimming complete. Now moving on to step 3 
+STEP 3: TRIMMING QC 
+Running fastqc on trimmed fastq files Tue Aug 3 13:35:38 EDT 2021
+Started analysis of 1041_1P
+Approx 5% complete for 1041_1P
+Approx 10% complete for 1041_1P
+Approx 15% complete for 1041_1P
+Approx 20% complete for 1041_1P
+Approx 25% complete for 1041_1P
+Approx 30% complete for 1041_1P
+Approx 35% complete for 1041_1P
+Approx 40% complete for 1041_1P
+Approx 45% complete for 1041_1P
+Approx 50% complete for 1041_1P
+Approx 55% complete for 1041_1P
+Approx 60% complete for 1041_1P
+Approx 65% complete for 1041_1P
+Approx 70% complete for 1041_1P
+Approx 75% complete for 1041_1P
+Approx 80% complete for 1041_1P
+Approx 85% complete for 1041_1P
+Approx 90% complete for 1041_1P
+Approx 95% complete for 1041_1P
+Analysis complete for 1041_1P
+Started analysis of 1041_1U
+Approx 5% complete for 1041_1U
+Approx 10% complete for 1041_1U
+Approx 15% complete for 1041_1U
+Approx 20% complete for 1041_1U
+Approx 25% complete for 1041_1U
+Approx 30% complete for 1041_1U
+Approx 35% complete for 1041_1U
+Approx 40% complete for 1041_1U
+Approx 45% complete for 1041_1U
+Approx 50% complete for 1041_1U
+Approx 55% complete for 1041_1U
+Approx 60% complete for 1041_1U
+Approx 65% complete for 1041_1U
+Approx 70% complete for 1041_1U
+Approx 75% complete for 1041_1U
+Approx 80% complete for 1041_1U
+Approx 85% complete for 1041_1U
+Approx 90% complete for 1041_1U
+Approx 95% complete for 1041_1U
+Analysis complete for 1041_1U
+Started analysis of 1041_2P
+Approx 5% complete for 1041_2P
+Approx 10% complete for 1041_2P
+Approx 15% complete for 1041_2P
+Approx 20% complete for 1041_2P
+Approx 25% complete for 1041_2P
+Approx 30% complete for 1041_2P
+Approx 35% complete for 1041_2P
+Approx 40% complete for 1041_2P
+Approx 45% complete for 1041_2P
+Approx 50% complete for 1041_2P
+Approx 55% complete for 1041_2P
+Approx 60% complete for 1041_2P
+Approx 65% complete for 1041_2P
+Approx 70% complete for 1041_2P
+Approx 75% complete for 1041_2P
+Approx 80% complete for 1041_2P
+Approx 85% complete for 1041_2P
+Approx 90% complete for 1041_2P
+Approx 95% complete for 1041_2P
+Analysis complete for 1041_2P
+Started analysis of 1041_2U
+Approx 5% complete for 1041_2U
+Approx 10% complete for 1041_2U
+Approx 15% complete for 1041_2U
+Approx 20% complete for 1041_2U
+Approx 25% complete for 1041_2U
+Approx 30% complete for 1041_2U
+Approx 35% complete for 1041_2U
+Approx 40% complete for 1041_2U
+Approx 45% complete for 1041_2U
+Approx 50% complete for 1041_2U
+Approx 55% complete for 1041_2U
+Approx 60% complete for 1041_2U
+Approx 65% complete for 1041_2U
+Approx 70% complete for 1041_2U
+Approx 75% complete for 1041_2U
+Approx 80% complete for 1041_2U
+Approx 85% complete for 1041_2U
+Approx 90% complete for 1041_2U
+Approx 95% complete for 1041_2U
+Analysis complete for 1041_2U
+Started analysis of 1101_1P
+Approx 5% complete for 1101_1P
+Approx 10% complete for 1101_1P
+Approx 15% complete for 1101_1P
+Approx 20% complete for 1101_1P
+Approx 25% complete for 1101_1P
+Approx 30% complete for 1101_1P
+Approx 35% complete for 1101_1P
+Approx 40% complete for 1101_1P
+Approx 45% complete for 1101_1P
+Approx 50% complete for 1101_1P
+Approx 55% complete for 1101_1P
+Approx 60% complete for 1101_1P
+Approx 65% complete for 1101_1P
+Approx 70% complete for 1101_1P
+Approx 75% complete for 1101_1P
+Approx 80% complete for 1101_1P
+Approx 85% complete for 1101_1P
+Approx 90% complete for 1101_1P
+Approx 95% complete for 1101_1P
+Analysis complete for 1101_1P
+Started analysis of 1101_1U
+Approx 5% complete for 1101_1U
+Approx 10% complete for 1101_1U
+Approx 15% complete for 1101_1U
+Approx 20% complete for 1101_1U
+Approx 25% complete for 1101_1U
+Approx 30% complete for 1101_1U
+Approx 35% complete for 1101_1U
+Approx 40% complete for 1101_1U
+Approx 45% complete for 1101_1U
+Approx 50% complete for 1101_1U
+Approx 55% complete for 1101_1U
+Approx 60% complete for 1101_1U
+Approx 65% complete for 1101_1U
+Approx 70% complete for 1101_1U
+Approx 75% complete for 1101_1U
+Approx 80% complete for 1101_1U
+Approx 85% complete for 1101_1U
+Approx 90% complete for 1101_1U
+Approx 95% complete for 1101_1U
+Analysis complete for 1101_1U
+Started analysis of 1101_2P
+Approx 5% complete for 1101_2P
+Approx 10% complete for 1101_2P
+Approx 15% complete for 1101_2P
+Approx 20% complete for 1101_2P
+Approx 25% complete for 1101_2P
+Approx 30% complete for 1101_2P
+Approx 35% complete for 1101_2P
+Approx 40% complete for 1101_2P
+Approx 45% complete for 1101_2P
+Approx 50% complete for 1101_2P
+Approx 55% complete for 1101_2P
+Approx 60% complete for 1101_2P
+Approx 65% complete for 1101_2P
+Approx 70% complete for 1101_2P
+Approx 75% complete for 1101_2P
+Approx 80% complete for 1101_2P
+Approx 85% complete for 1101_2P
+Approx 90% complete for 1101_2P
+Approx 95% complete for 1101_2P
+Analysis complete for 1101_2P
+Started analysis of 1101_2U
+Approx 5% complete for 1101_2U
+Approx 10% complete for 1101_2U
+Approx 15% complete for 1101_2U
+Approx 20% complete for 1101_2U
+Approx 25% complete for 1101_2U
+Approx 30% complete for 1101_2U
+Approx 35% complete for 1101_2U
+Approx 40% complete for 1101_2U
+Approx 45% complete for 1101_2U
+Approx 50% complete for 1101_2U
+Approx 55% complete for 1101_2U
+Approx 60% complete for 1101_2U
+Approx 65% complete for 1101_2U
+Approx 70% complete for 1101_2U
+Approx 75% complete for 1101_2U
+Approx 80% complete for 1101_2U
+Approx 85% complete for 1101_2U
+Approx 90% complete for 1101_2U
+Approx 95% complete for 1101_2U
+Analysis complete for 1101_2U
+Started analysis of 1471_1P
+Approx 5% complete for 1471_1P
+Approx 10% complete for 1471_1P
+Approx 15% complete for 1471_1P
+Approx 20% complete for 1471_1P
+Approx 25% complete for 1471_1P
+Approx 30% complete for 1471_1P
+Approx 35% complete for 1471_1P
+Approx 40% complete for 1471_1P
+Approx 45% complete for 1471_1P
+Approx 50% complete for 1471_1P
+Approx 55% complete for 1471_1P
+Approx 60% complete for 1471_1P
+Approx 65% complete for 1471_1P
+Approx 70% complete for 1471_1P
+Approx 75% complete for 1471_1P
+Approx 80% complete for 1471_1P
+Approx 85% complete for 1471_1P
+Approx 90% complete for 1471_1P
+Approx 95% complete for 1471_1P
+Analysis complete for 1471_1P
+Started analysis of 1471_1U
+Approx 5% complete for 1471_1U
+Approx 10% complete for 1471_1U
+Approx 15% complete for 1471_1U
+Approx 20% complete for 1471_1U
+Approx 25% complete for 1471_1U
+Approx 30% complete for 1471_1U
+Approx 35% complete for 1471_1U
+Approx 40% complete for 1471_1U
+Approx 45% complete for 1471_1U
+Approx 50% complete for 1471_1U
+Approx 55% complete for 1471_1U
+Approx 60% complete for 1471_1U
+Approx 65% complete for 1471_1U
+Approx 70% complete for 1471_1U
+Approx 75% complete for 1471_1U
+Approx 80% complete for 1471_1U
+Approx 85% complete for 1471_1U
+Approx 90% complete for 1471_1U
+Approx 95% complete for 1471_1U
+Analysis complete for 1471_1U
+Started analysis of 1471_2P
+Approx 5% complete for 1471_2P
+Approx 10% complete for 1471_2P
+Approx 15% complete for 1471_2P
+Approx 20% complete for 1471_2P
+Approx 25% complete for 1471_2P
+Approx 30% complete for 1471_2P
+Approx 35% complete for 1471_2P
+Approx 40% complete for 1471_2P
+Approx 45% complete for 1471_2P
+Approx 50% complete for 1471_2P
+Approx 55% complete for 1471_2P
+Approx 60% complete for 1471_2P
+Approx 65% complete for 1471_2P
+Approx 70% complete for 1471_2P
+Approx 75% complete for 1471_2P
+Approx 80% complete for 1471_2P
+Approx 85% complete for 1471_2P
+Approx 90% complete for 1471_2P
+Approx 95% complete for 1471_2P
+Analysis complete for 1471_2P
+Started analysis of 1471_2U
+Approx 5% complete for 1471_2U
+Approx 10% complete for 1471_2U
+Approx 15% complete for 1471_2U
+Approx 20% complete for 1471_2U
+Approx 25% complete for 1471_2U
+Approx 30% complete for 1471_2U
+Approx 35% complete for 1471_2U
+Approx 40% complete for 1471_2U
+Approx 45% complete for 1471_2U
+Approx 50% complete for 1471_2U
+Approx 55% complete for 1471_2U
+Approx 60% complete for 1471_2U
+Approx 65% complete for 1471_2U
+Approx 70% complete for 1471_2U
+Approx 75% complete for 1471_2U
+Approx 80% complete for 1471_2U
+Approx 85% complete for 1471_2U
+Approx 90% complete for 1471_2U
+Approx 95% complete for 1471_2U
+Analysis complete for 1471_2U
+Started analysis of 1548_1P
+Approx 5% complete for 1548_1P
+Approx 10% complete for 1548_1P
+Approx 15% complete for 1548_1P
+Approx 20% complete for 1548_1P
+Approx 25% complete for 1548_1P
+Approx 30% complete for 1548_1P
+Approx 35% complete for 1548_1P
+Approx 40% complete for 1548_1P
+Approx 45% complete for 1548_1P
+Approx 50% complete for 1548_1P
+Approx 55% complete for 1548_1P
+Approx 60% complete for 1548_1P
+Approx 65% complete for 1548_1P
+Approx 70% complete for 1548_1P
+Approx 75% complete for 1548_1P
+Approx 80% complete for 1548_1P
+Approx 85% complete for 1548_1P
+Approx 90% complete for 1548_1P
+Approx 95% complete for 1548_1P
+Analysis complete for 1548_1P
+Started analysis of 1548_1U
+Approx 5% complete for 1548_1U
+Approx 10% complete for 1548_1U
+Approx 15% complete for 1548_1U
+Approx 20% complete for 1548_1U
+Approx 25% complete for 1548_1U
+Approx 30% complete for 1548_1U
+Approx 35% complete for 1548_1U
+Approx 40% complete for 1548_1U
+Approx 45% complete for 1548_1U
+Approx 50% complete for 1548_1U
+Approx 55% complete for 1548_1U
+Approx 60% complete for 1548_1U
+Approx 65% complete for 1548_1U
+Approx 70% complete for 1548_1U
+Approx 75% complete for 1548_1U
+Approx 80% complete for 1548_1U
+Approx 85% complete for 1548_1U
+Approx 90% complete for 1548_1U
+Approx 95% complete for 1548_1U
+Analysis complete for 1548_1U
+Started analysis of 1548_2P
+Approx 5% complete for 1548_2P
+Approx 10% complete for 1548_2P
+Approx 15% complete for 1548_2P
+Approx 20% complete for 1548_2P
+Approx 25% complete for 1548_2P
+Approx 30% complete for 1548_2P
+Approx 35% complete for 1548_2P
+Approx 40% complete for 1548_2P
+Approx 45% complete for 1548_2P
+Approx 50% complete for 1548_2P
+Approx 55% complete for 1548_2P
+Approx 60% complete for 1548_2P
+Approx 65% complete for 1548_2P
+Approx 70% complete for 1548_2P
+Approx 75% complete for 1548_2P
+Approx 80% complete for 1548_2P
+Approx 85% complete for 1548_2P
+Approx 90% complete for 1548_2P
+Approx 95% complete for 1548_2P
+Analysis complete for 1548_2P
+Started analysis of 1548_2U
+Approx 5% complete for 1548_2U
+Approx 10% complete for 1548_2U
+Approx 15% complete for 1548_2U
+Approx 20% complete for 1548_2U
+Approx 30% complete for 1548_2U
+Approx 35% complete for 1548_2U
+Approx 40% complete for 1548_2U
+Approx 45% complete for 1548_2U
+Approx 50% complete for 1548_2U
+Approx 60% complete for 1548_2U
+Approx 65% complete for 1548_2U
+Approx 70% complete for 1548_2U
+Approx 75% complete for 1548_2U
+Approx 80% complete for 1548_2U
+Approx 90% complete for 1548_2U
+Approx 95% complete for 1548_2U
+Analysis complete for 1548_2U
+Started analysis of 1628_1P
+Approx 5% complete for 1628_1P
+Approx 10% complete for 1628_1P
+Approx 15% complete for 1628_1P
+Approx 20% complete for 1628_1P
+Approx 25% complete for 1628_1P
+Approx 30% complete for 1628_1P
+Approx 35% complete for 1628_1P
+Approx 40% complete for 1628_1P
+Approx 45% complete for 1628_1P
+Approx 50% complete for 1628_1P
+Approx 55% complete for 1628_1P
+Approx 60% complete for 1628_1P
+Approx 65% complete for 1628_1P
+Approx 70% complete for 1628_1P
+Approx 75% complete for 1628_1P
+Approx 80% complete for 1628_1P
+Approx 85% complete for 1628_1P
+Approx 90% complete for 1628_1P
+Approx 95% complete for 1628_1P
+Analysis complete for 1628_1P
+Started analysis of 1628_1U
+Approx 5% complete for 1628_1U
+Approx 10% complete for 1628_1U
+Approx 15% complete for 1628_1U
+Approx 20% complete for 1628_1U
+Approx 25% complete for 1628_1U
+Approx 30% complete for 1628_1U
+Approx 35% complete for 1628_1U
+Approx 40% complete for 1628_1U
+Approx 45% complete for 1628_1U
+Approx 50% complete for 1628_1U
+Approx 55% complete for 1628_1U
+Approx 60% complete for 1628_1U
+Approx 65% complete for 1628_1U
+Approx 70% complete for 1628_1U
+Approx 75% complete for 1628_1U
+Approx 80% complete for 1628_1U
+Approx 85% complete for 1628_1U
+Approx 90% complete for 1628_1U
+Approx 95% complete for 1628_1U
+Analysis complete for 1628_1U
+Started analysis of 1628_2P
+Approx 5% complete for 1628_2P
+Approx 10% complete for 1628_2P
+Approx 15% complete for 1628_2P
+Approx 20% complete for 1628_2P
+Approx 25% complete for 1628_2P
+Approx 30% complete for 1628_2P
+Approx 35% complete for 1628_2P
+Approx 40% complete for 1628_2P
+Approx 45% complete for 1628_2P
+Approx 50% complete for 1628_2P
+Approx 55% complete for 1628_2P
+Approx 60% complete for 1628_2P
+Approx 65% complete for 1628_2P
+Approx 70% complete for 1628_2P
+Approx 75% complete for 1628_2P
+Approx 80% complete for 1628_2P
+Approx 85% complete for 1628_2P
+Approx 90% complete for 1628_2P
+Approx 95% complete for 1628_2P
+Analysis complete for 1628_2P
+Started analysis of 1628_2U
+Approx 5% complete for 1628_2U
+Approx 10% complete for 1628_2U
+Approx 15% complete for 1628_2U
+Approx 20% complete for 1628_2U
+Approx 25% complete for 1628_2U
+Approx 30% complete for 1628_2U
+Approx 35% complete for 1628_2U
+Approx 40% complete for 1628_2U
+Approx 50% complete for 1628_2U
+Approx 55% complete for 1628_2U
+Approx 60% complete for 1628_2U
+Approx 70% complete for 1628_2U
+Approx 75% complete for 1628_2U
+Approx 80% complete for 1628_2U
+Approx 85% complete for 1628_2U
+Approx 90% complete for 1628_2U
+Approx 95% complete for 1628_2U
+Analysis complete for 1628_2U
+Started analysis of 1637_1P
+Approx 5% complete for 1637_1P
+Approx 10% complete for 1637_1P
+Approx 15% complete for 1637_1P
+Approx 20% complete for 1637_1P
+Approx 25% complete for 1637_1P
+Approx 30% complete for 1637_1P
+Approx 35% complete for 1637_1P
+Approx 40% complete for 1637_1P
+Approx 45% complete for 1637_1P
+Approx 50% complete for 1637_1P
+Approx 55% complete for 1637_1P
+Approx 60% complete for 1637_1P
+Approx 65% complete for 1637_1P
+Approx 70% complete for 1637_1P
+Approx 75% complete for 1637_1P
+Approx 80% complete for 1637_1P
+Approx 85% complete for 1637_1P
+Approx 90% complete for 1637_1P
+Approx 95% complete for 1637_1P
+Analysis complete for 1637_1P
+Started analysis of 1637_1U
+Approx 5% complete for 1637_1U
+Approx 10% complete for 1637_1U
+Approx 15% complete for 1637_1U
+Approx 20% complete for 1637_1U
+Approx 25% complete for 1637_1U
+Approx 30% complete for 1637_1U
+Approx 35% complete for 1637_1U
+Approx 40% complete for 1637_1U
+Approx 45% complete for 1637_1U
+Approx 50% complete for 1637_1U
+Approx 55% complete for 1637_1U
+Approx 60% complete for 1637_1U
+Approx 65% complete for 1637_1U
+Approx 70% complete for 1637_1U
+Approx 75% complete for 1637_1U
+Approx 80% complete for 1637_1U
+Approx 85% complete for 1637_1U
+Approx 90% complete for 1637_1U
+Approx 95% complete for 1637_1U
+Analysis complete for 1637_1U
+Started analysis of 1637_2P
+Approx 5% complete for 1637_2P
+Approx 10% complete for 1637_2P
+Approx 15% complete for 1637_2P
+Approx 20% complete for 1637_2P
+Approx 25% complete for 1637_2P
+Approx 30% complete for 1637_2P
+Approx 35% complete for 1637_2P
+Approx 40% complete for 1637_2P
+Approx 45% complete for 1637_2P
+Approx 50% complete for 1637_2P
+Approx 55% complete for 1637_2P
+Approx 60% complete for 1637_2P
+Approx 65% complete for 1637_2P
+Approx 70% complete for 1637_2P
+Approx 75% complete for 1637_2P
+Approx 80% complete for 1637_2P
+Approx 85% complete for 1637_2P
+Approx 90% complete for 1637_2P
+Approx 95% complete for 1637_2P
+Analysis complete for 1637_2P
+Started analysis of 1637_2U
+Approx 5% complete for 1637_2U
+Approx 10% complete for 1637_2U
+Approx 15% complete for 1637_2U
+Approx 20% complete for 1637_2U
+Approx 25% complete for 1637_2U
+Approx 30% complete for 1637_2U
+Approx 35% complete for 1637_2U
+Approx 40% complete for 1637_2U
+Approx 45% complete for 1637_2U
+Approx 50% complete for 1637_2U
+Approx 55% complete for 1637_2U
+Approx 60% complete for 1637_2U
+Approx 65% complete for 1637_2U
+Approx 70% complete for 1637_2U
+Approx 75% complete for 1637_2U
+Approx 80% complete for 1637_2U
+Approx 85% complete for 1637_2U
+Approx 90% complete for 1637_2U
+Approx 95% complete for 1637_2U
+Analysis complete for 1637_2U
+Started analysis of Sample1_1P
+Approx 5% complete for Sample1_1P
+Approx 10% complete for Sample1_1P
+Approx 15% complete for Sample1_1P
+Approx 20% complete for Sample1_1P
+Approx 25% complete for Sample1_1P
+Approx 30% complete for Sample1_1P
+Approx 35% complete for Sample1_1P
+Approx 40% complete for Sample1_1P
+Approx 45% complete for Sample1_1P
+Approx 50% complete for Sample1_1P
+Approx 55% complete for Sample1_1P
+Approx 60% complete for Sample1_1P
+Approx 65% complete for Sample1_1P
+Approx 70% complete for Sample1_1P
+Approx 75% complete for Sample1_1P
+Approx 80% complete for Sample1_1P
+Approx 85% complete for Sample1_1P
+Approx 90% complete for Sample1_1P
+Approx 95% complete for Sample1_1P
+Analysis complete for Sample1_1P
+Started analysis of Sample1_1U
+Approx 5% complete for Sample1_1U
+Approx 10% complete for Sample1_1U
+Approx 15% complete for Sample1_1U
+Approx 20% complete for Sample1_1U
+Approx 25% complete for Sample1_1U
+Approx 30% complete for Sample1_1U
+Approx 35% complete for Sample1_1U
+Approx 40% complete for Sample1_1U
+Approx 45% complete for Sample1_1U
+Approx 50% complete for Sample1_1U
+Approx 55% complete for Sample1_1U
+Approx 60% complete for Sample1_1U
+Approx 65% complete for Sample1_1U
+Approx 70% complete for Sample1_1U
+Approx 75% complete for Sample1_1U
+Approx 80% complete for Sample1_1U
+Approx 85% complete for Sample1_1U
+Approx 90% complete for Sample1_1U
+Approx 95% complete for Sample1_1U
+Analysis complete for Sample1_1U
+Started analysis of Sample1_2P
+Approx 5% complete for Sample1_2P
+Approx 10% complete for Sample1_2P
+Approx 15% complete for Sample1_2P
+Approx 20% complete for Sample1_2P
+Approx 25% complete for Sample1_2P
+Approx 30% complete for Sample1_2P
+Approx 35% complete for Sample1_2P
+Approx 40% complete for Sample1_2P
+Approx 45% complete for Sample1_2P
+Approx 50% complete for Sample1_2P
+Approx 55% complete for Sample1_2P
+Approx 60% complete for Sample1_2P
+Approx 65% complete for Sample1_2P
+Approx 70% complete for Sample1_2P
+Approx 75% complete for Sample1_2P
+Approx 80% complete for Sample1_2P
+Approx 85% complete for Sample1_2P
+Approx 90% complete for Sample1_2P
+Approx 95% complete for Sample1_2P
+Analysis complete for Sample1_2P
+Started analysis of Sample1_2U
+Approx 5% complete for Sample1_2U
+Approx 10% complete for Sample1_2U
+Approx 15% complete for Sample1_2U
+Approx 20% complete for Sample1_2U
+Approx 25% complete for Sample1_2U
+Approx 30% complete for Sample1_2U
+Approx 35% complete for Sample1_2U
+Approx 40% complete for Sample1_2U
+Approx 45% complete for Sample1_2U
+Approx 50% complete for Sample1_2U
+Approx 55% complete for Sample1_2U
+Approx 60% complete for Sample1_2U
+Approx 65% complete for Sample1_2U
+Approx 70% complete for Sample1_2U
+Approx 75% complete for Sample1_2U
+Approx 80% complete for Sample1_2U
+Approx 85% complete for Sample1_2U
+Approx 90% complete for Sample1_2U
+Approx 95% complete for Sample1_2U
+Analysis complete for Sample1_2U
+Started analysis of Sample2_1P
+Approx 5% complete for Sample2_1P
+Approx 10% complete for Sample2_1P
+Approx 15% complete for Sample2_1P
+Approx 20% complete for Sample2_1P
+Approx 25% complete for Sample2_1P
+Approx 30% complete for Sample2_1P
+Approx 35% complete for Sample2_1P
+Approx 40% complete for Sample2_1P
+Approx 45% complete for Sample2_1P
+Approx 50% complete for Sample2_1P
+Approx 55% complete for Sample2_1P
+Approx 60% complete for Sample2_1P
+Approx 65% complete for Sample2_1P
+Approx 70% complete for Sample2_1P
+Approx 75% complete for Sample2_1P
+Approx 80% complete for Sample2_1P
+Approx 85% complete for Sample2_1P
+Approx 90% complete for Sample2_1P
+Approx 95% complete for Sample2_1P
+Analysis complete for Sample2_1P
+Started analysis of Sample2_1U
+Approx 5% complete for Sample2_1U
+Approx 10% complete for Sample2_1U
+Approx 15% complete for Sample2_1U
+Approx 20% complete for Sample2_1U
+Approx 25% complete for Sample2_1U
+Approx 30% complete for Sample2_1U
+Approx 35% complete for Sample2_1U
+Approx 40% complete for Sample2_1U
+Approx 45% complete for Sample2_1U
+Approx 50% complete for Sample2_1U
+Approx 55% complete for Sample2_1U
+Approx 60% complete for Sample2_1U
+Approx 65% complete for Sample2_1U
+Approx 70% complete for Sample2_1U
+Approx 75% complete for Sample2_1U
+Approx 80% complete for Sample2_1U
+Approx 85% complete for Sample2_1U
+Approx 90% complete for Sample2_1U
+Approx 95% complete for Sample2_1U
+Analysis complete for Sample2_1U
+Started analysis of Sample2_2P
+Approx 5% complete for Sample2_2P
+Approx 10% complete for Sample2_2P
+Approx 15% complete for Sample2_2P
+Approx 20% complete for Sample2_2P
+Approx 25% complete for Sample2_2P
+Approx 30% complete for Sample2_2P
+Approx 35% complete for Sample2_2P
+Approx 40% complete for Sample2_2P
+Approx 45% complete for Sample2_2P
+Approx 50% complete for Sample2_2P
+Approx 55% complete for Sample2_2P
+Approx 60% complete for Sample2_2P
+Approx 65% complete for Sample2_2P
+Approx 70% complete for Sample2_2P
+Approx 75% complete for Sample2_2P
+Approx 80% complete for Sample2_2P
+Approx 85% complete for Sample2_2P
+Approx 90% complete for Sample2_2P
+Approx 95% complete for Sample2_2P
+Analysis complete for Sample2_2P
+Started analysis of Sample2_2U
+Approx 5% complete for Sample2_2U
+Approx 10% complete for Sample2_2U
+Approx 15% complete for Sample2_2U
+Approx 20% complete for Sample2_2U
+Approx 25% complete for Sample2_2U
+Approx 30% complete for Sample2_2U
+Approx 35% complete for Sample2_2U
+Approx 40% complete for Sample2_2U
+Approx 45% complete for Sample2_2U
+Approx 50% complete for Sample2_2U
+Approx 55% complete for Sample2_2U
+Approx 60% complete for Sample2_2U
+Approx 65% complete for Sample2_2U
+Approx 70% complete for Sample2_2U
+Approx 75% complete for Sample2_2U
+Approx 80% complete for Sample2_2U
+Approx 85% complete for Sample2_2U
+Approx 90% complete for Sample2_2U
+Approx 95% complete for Sample2_2U
+Analysis complete for Sample2_2U
+Started analysis of Sample3_1P
+Approx 5% complete for Sample3_1P
+Approx 10% complete for Sample3_1P
+Approx 15% complete for Sample3_1P
+Approx 20% complete for Sample3_1P
+Approx 25% complete for Sample3_1P
+Approx 30% complete for Sample3_1P
+Approx 35% complete for Sample3_1P
+Approx 40% complete for Sample3_1P
+Approx 45% complete for Sample3_1P
+Approx 50% complete for Sample3_1P
+Approx 55% complete for Sample3_1P
+Approx 60% complete for Sample3_1P
+Approx 65% complete for Sample3_1P
+Approx 70% complete for Sample3_1P
+Approx 75% complete for Sample3_1P
+Approx 80% complete for Sample3_1P
+Approx 85% complete for Sample3_1P
+Approx 90% complete for Sample3_1P
+Approx 95% complete for Sample3_1P
+Analysis complete for Sample3_1P
+Started analysis of Sample3_1U
+Approx 5% complete for Sample3_1U
+Approx 10% complete for Sample3_1U
+Approx 15% complete for Sample3_1U
+Approx 20% complete for Sample3_1U
+Approx 25% complete for Sample3_1U
+Approx 30% complete for Sample3_1U
+Approx 35% complete for Sample3_1U
+Approx 40% complete for Sample3_1U
+Approx 45% complete for Sample3_1U
+Approx 50% complete for Sample3_1U
+Approx 55% complete for Sample3_1U
+Approx 60% complete for Sample3_1U
+Approx 65% complete for Sample3_1U
+Approx 70% complete for Sample3_1U
+Approx 75% complete for Sample3_1U
+Approx 80% complete for Sample3_1U
+Approx 85% complete for Sample3_1U
+Approx 90% complete for Sample3_1U
+Approx 95% complete for Sample3_1U
+Analysis complete for Sample3_1U
+Started analysis of Sample3_2P
+Approx 5% complete for Sample3_2P
+Approx 10% complete for Sample3_2P
+Approx 15% complete for Sample3_2P
+Approx 20% complete for Sample3_2P
+Approx 25% complete for Sample3_2P
+Approx 30% complete for Sample3_2P
+Approx 35% complete for Sample3_2P
+Approx 40% complete for Sample3_2P
+Approx 45% complete for Sample3_2P
+Approx 50% complete for Sample3_2P
+Approx 55% complete for Sample3_2P
+Approx 60% complete for Sample3_2P
+Approx 65% complete for Sample3_2P
+Approx 70% complete for Sample3_2P
+Approx 75% complete for Sample3_2P
+Approx 80% complete for Sample3_2P
+Approx 85% complete for Sample3_2P
+Approx 90% complete for Sample3_2P
+Approx 95% complete for Sample3_2P
+Analysis complete for Sample3_2P
+Started analysis of Sample3_2U
+Approx 5% complete for Sample3_2U
+Approx 10% complete for Sample3_2U
+Approx 15% complete for Sample3_2U
+Approx 20% complete for Sample3_2U
+Approx 25% complete for Sample3_2U
+Approx 30% complete for Sample3_2U
+Approx 35% complete for Sample3_2U
+Approx 40% complete for Sample3_2U
+Approx 45% complete for Sample3_2U
+Approx 50% complete for Sample3_2U
+Approx 55% complete for Sample3_2U
+Approx 60% complete for Sample3_2U
+Approx 65% complete for Sample3_2U
+Approx 70% complete for Sample3_2U
+Approx 75% complete for Sample3_2U
+Approx 80% complete for Sample3_2U
+Approx 85% complete for Sample3_2U
+Approx 90% complete for Sample3_2U
+Approx 95% complete for Sample3_2U
+Analysis complete for Sample3_2U
+Started analysis of Sample4_1P
+Approx 5% complete for Sample4_1P
+Approx 10% complete for Sample4_1P
+Approx 15% complete for Sample4_1P
+Approx 20% complete for Sample4_1P
+Approx 25% complete for Sample4_1P
+Approx 30% complete for Sample4_1P
+Approx 35% complete for Sample4_1P
+Approx 40% complete for Sample4_1P
+Approx 45% complete for Sample4_1P
+Approx 50% complete for Sample4_1P
+Approx 55% complete for Sample4_1P
+Approx 60% complete for Sample4_1P
+Approx 65% complete for Sample4_1P
+Approx 70% complete for Sample4_1P
+Approx 75% complete for Sample4_1P
+Approx 80% complete for Sample4_1P
+Approx 85% complete for Sample4_1P
+Approx 90% complete for Sample4_1P
+Approx 95% complete for Sample4_1P
+Analysis complete for Sample4_1P
+Started analysis of Sample4_1U
+Approx 5% complete for Sample4_1U
+Approx 10% complete for Sample4_1U
+Approx 15% complete for Sample4_1U
+Approx 20% complete for Sample4_1U
+Approx 25% complete for Sample4_1U
+Approx 30% complete for Sample4_1U
+Approx 35% complete for Sample4_1U
+Approx 40% complete for Sample4_1U
+Approx 45% complete for Sample4_1U
+Approx 50% complete for Sample4_1U
+Approx 55% complete for Sample4_1U
+Approx 60% complete for Sample4_1U
+Approx 65% complete for Sample4_1U
+Approx 70% complete for Sample4_1U
+Approx 75% complete for Sample4_1U
+Approx 80% complete for Sample4_1U
+Approx 85% complete for Sample4_1U
+Approx 90% complete for Sample4_1U
+Approx 95% complete for Sample4_1U
+Analysis complete for Sample4_1U
+Started analysis of Sample4_2P
+Approx 5% complete for Sample4_2P
+Approx 10% complete for Sample4_2P
+Approx 15% complete for Sample4_2P
+Approx 20% complete for Sample4_2P
+Approx 25% complete for Sample4_2P
+Approx 30% complete for Sample4_2P
+Approx 35% complete for Sample4_2P
+Approx 40% complete for Sample4_2P
+Approx 45% complete for Sample4_2P
+Approx 50% complete for Sample4_2P
+Approx 55% complete for Sample4_2P
+Approx 60% complete for Sample4_2P
+Approx 65% complete for Sample4_2P
+Approx 70% complete for Sample4_2P
+Approx 75% complete for Sample4_2P
+Approx 80% complete for Sample4_2P
+Approx 85% complete for Sample4_2P
+Approx 90% complete for Sample4_2P
+Approx 95% complete for Sample4_2P
+Analysis complete for Sample4_2P
+Started analysis of Sample4_2U
+Approx 5% complete for Sample4_2U
+Approx 10% complete for Sample4_2U
+Approx 15% complete for Sample4_2U
+Approx 20% complete for Sample4_2U
+Approx 25% complete for Sample4_2U
+Approx 30% complete for Sample4_2U
+Approx 35% complete for Sample4_2U
+Approx 40% complete for Sample4_2U
+Approx 45% complete for Sample4_2U
+Approx 50% complete for Sample4_2U
+Approx 55% complete for Sample4_2U
+Approx 60% complete for Sample4_2U
+Approx 65% complete for Sample4_2U
+Approx 70% complete for Sample4_2U
+Approx 75% complete for Sample4_2U
+Approx 80% complete for Sample4_2U
+Approx 85% complete for Sample4_2U
+Approx 90% complete for Sample4_2U
+Approx 95% complete for Sample4_2U
+Analysis complete for Sample4_2U
+Started analysis of Sample5_1P
+Approx 5% complete for Sample5_1P
+Approx 10% complete for Sample5_1P
+Approx 15% complete for Sample5_1P
+Approx 20% complete for Sample5_1P
+Approx 25% complete for Sample5_1P
+Approx 30% complete for Sample5_1P
+Approx 35% complete for Sample5_1P
+Approx 40% complete for Sample5_1P
+Approx 45% complete for Sample5_1P
+Approx 50% complete for Sample5_1P
+Approx 55% complete for Sample5_1P
+Approx 60% complete for Sample5_1P
+Approx 65% complete for Sample5_1P
+Approx 70% complete for Sample5_1P
+Approx 75% complete for Sample5_1P
+Approx 80% complete for Sample5_1P
+Approx 85% complete for Sample5_1P
+Approx 90% complete for Sample5_1P
+Approx 95% complete for Sample5_1P
+Analysis complete for Sample5_1P
+Started analysis of Sample5_1U
+Approx 5% complete for Sample5_1U
+Approx 10% complete for Sample5_1U
+Approx 15% complete for Sample5_1U
+Approx 20% complete for Sample5_1U
+Approx 25% complete for Sample5_1U
+Approx 30% complete for Sample5_1U
+Approx 35% complete for Sample5_1U
+Approx 40% complete for Sample5_1U
+Approx 45% complete for Sample5_1U
+Approx 50% complete for Sample5_1U
+Approx 55% complete for Sample5_1U
+Approx 60% complete for Sample5_1U
+Approx 65% complete for Sample5_1U
+Approx 70% complete for Sample5_1U
+Approx 75% complete for Sample5_1U
+Approx 80% complete for Sample5_1U
+Approx 85% complete for Sample5_1U
+Approx 90% complete for Sample5_1U
+Approx 95% complete for Sample5_1U
+Approx 100% complete for Sample5_1U
+Analysis complete for Sample5_1U
+Started analysis of Sample5_2P
+Approx 5% complete for Sample5_2P
+Approx 10% complete for Sample5_2P
+Approx 15% complete for Sample5_2P
+Approx 20% complete for Sample5_2P
+Approx 25% complete for Sample5_2P
+Approx 30% complete for Sample5_2P
+Approx 35% complete for Sample5_2P
+Approx 40% complete for Sample5_2P
+Approx 45% complete for Sample5_2P
+Approx 50% complete for Sample5_2P
+Approx 55% complete for Sample5_2P
+Approx 60% complete for Sample5_2P
+Approx 65% complete for Sample5_2P
+Approx 70% complete for Sample5_2P
+Approx 75% complete for Sample5_2P
+Approx 80% complete for Sample5_2P
+Approx 85% complete for Sample5_2P
+Approx 90% complete for Sample5_2P
+Approx 95% complete for Sample5_2P
+Analysis complete for Sample5_2P
+Started analysis of Sample5_2U
+Approx 5% complete for Sample5_2U
+Approx 10% complete for Sample5_2U
+Approx 15% complete for Sample5_2U
+Approx 20% complete for Sample5_2U
+Approx 25% complete for Sample5_2U
+Approx 30% complete for Sample5_2U
+Approx 35% complete for Sample5_2U
+Approx 40% complete for Sample5_2U
+Approx 45% complete for Sample5_2U
+Approx 50% complete for Sample5_2U
+Approx 55% complete for Sample5_2U
+Approx 60% complete for Sample5_2U
+Approx 65% complete for Sample5_2U
+Approx 70% complete for Sample5_2U
+Approx 75% complete for Sample5_2U
+Approx 80% complete for Sample5_2U
+Approx 85% complete for Sample5_2U
+Approx 90% complete for Sample5_2U
+Approx 95% complete for Sample5_2U
+Analysis complete for Sample5_2U
+Started analysis of Sample6_1P
+Approx 5% complete for Sample6_1P
+Approx 10% complete for Sample6_1P
+Approx 15% complete for Sample6_1P
+Approx 20% complete for Sample6_1P
+Approx 25% complete for Sample6_1P
+Approx 30% complete for Sample6_1P
+Approx 35% complete for Sample6_1P
+Approx 40% complete for Sample6_1P
+Approx 45% complete for Sample6_1P
+Approx 50% complete for Sample6_1P
+Approx 55% complete for Sample6_1P
+Approx 60% complete for Sample6_1P
+Approx 65% complete for Sample6_1P
+Approx 70% complete for Sample6_1P
+Approx 75% complete for Sample6_1P
+Approx 80% complete for Sample6_1P
+Approx 85% complete for Sample6_1P
+Approx 90% complete for Sample6_1P
+Approx 95% complete for Sample6_1P
+Analysis complete for Sample6_1P
+Started analysis of Sample6_1U
+Approx 5% complete for Sample6_1U
+Approx 10% complete for Sample6_1U
+Approx 15% complete for Sample6_1U
+Approx 20% complete for Sample6_1U
+Approx 25% complete for Sample6_1U
+Approx 30% complete for Sample6_1U
+Approx 35% complete for Sample6_1U
+Approx 40% complete for Sample6_1U
+Approx 45% complete for Sample6_1U
+Approx 50% complete for Sample6_1U
+Approx 55% complete for Sample6_1U
+Approx 60% complete for Sample6_1U
+Approx 65% complete for Sample6_1U
+Approx 70% complete for Sample6_1U
+Approx 75% complete for Sample6_1U
+Approx 80% complete for Sample6_1U
+Approx 85% complete for Sample6_1U
+Approx 90% complete for Sample6_1U
+Approx 95% complete for Sample6_1U
+Analysis complete for Sample6_1U
+Started analysis of Sample6_2P
+Approx 5% complete for Sample6_2P
+Approx 10% complete for Sample6_2P
+Approx 15% complete for Sample6_2P
+Approx 20% complete for Sample6_2P
+Approx 25% complete for Sample6_2P
+Approx 30% complete for Sample6_2P
+Approx 35% complete for Sample6_2P
+Approx 40% complete for Sample6_2P
+Approx 45% complete for Sample6_2P
+Approx 50% complete for Sample6_2P
+Approx 55% complete for Sample6_2P
+Approx 60% complete for Sample6_2P
+Approx 65% complete for Sample6_2P
+Approx 70% complete for Sample6_2P
+Approx 75% complete for Sample6_2P
+Approx 80% complete for Sample6_2P
+Approx 85% complete for Sample6_2P
+Approx 90% complete for Sample6_2P
+Approx 95% complete for Sample6_2P
+Analysis complete for Sample6_2P
+Started analysis of Sample6_2U
+Approx 5% complete for Sample6_2U
+Approx 10% complete for Sample6_2U
+Approx 15% complete for Sample6_2U
+Approx 20% complete for Sample6_2U
+Approx 25% complete for Sample6_2U
+Approx 30% complete for Sample6_2U
+Approx 35% complete for Sample6_2U
+Approx 40% complete for Sample6_2U
+Approx 45% complete for Sample6_2U
+Approx 50% complete for Sample6_2U
+Approx 55% complete for Sample6_2U
+Approx 60% complete for Sample6_2U
+Approx 65% complete for Sample6_2U
+Approx 70% complete for Sample6_2U
+Approx 75% complete for Sample6_2U
+Approx 80% complete for Sample6_2U
+Approx 85% complete for Sample6_2U
+Approx 90% complete for Sample6_2U
+Approx 95% complete for Sample6_2U
+Analysis complete for Sample6_2U
+[WARNING]         multiqc : MultiQC Version v1.11 now available!
+[INFO   ]         multiqc : This is MultiQC v1.7
+[INFO   ]         multiqc : Template    : default
+[INFO   ]         multiqc : Searching '.'
+[INFO   ]          fastqc : Found 60 reports
+[INFO   ]         multiqc : Compressing plot data
+[WARNING]         multiqc : Previous MultiQC output found! Adjusting filenames..
+[WARNING]         multiqc : Use -f or --force to overwrite existing reports instead
+[INFO   ]         multiqc : Report      : ../../multiqc/trimmed/multiqc_report_2.html
+[INFO   ]         multiqc : Data        : ../../multiqc/trimmed/multiqc_data_2
+[INFO   ]         multiqc : MultiQC complete
+chmod: cannot access `./Sample6_2U': No such file or directory
+
+ STEP 3 (Trimming and QC) COMPLETE Tue Aug 3 14:27:52 EDT 2021
