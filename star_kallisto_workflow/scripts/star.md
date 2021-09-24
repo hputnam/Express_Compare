@@ -1,4 +1,4 @@
-# RNA-seq Kallisto Pipeline
+# RNA-seq STAR Pipeline
 ## Montipora capitata and Pocillopora acuta
 https://www.ncbi.nlm.nih.gov/bioproject/PRJNA744524
 Megan Gelement and Nitya Nadgir <br>
