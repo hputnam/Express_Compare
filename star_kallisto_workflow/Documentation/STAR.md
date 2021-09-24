@@ -22,12 +22,6 @@ Subdirectories: "Genomes" holds genome fasta files; "Annotation Files" holds ann
 
 ### 2) Create Genome Indices
 
-Make directory to store indices:
-```
-mkdir Indices
-chmod 775 Indices
-```
-
 Run script to generate indices:
 ```
 #!/bin/bash
@@ -69,7 +63,7 @@ git clone https://github.com/gpertea/stringtie
 cd stringtie
 ```
 
-Download source code from https://zlib.net (version 1.2.11, tar.gz format) and unzip:
+Download zlib source code from https://zlib.net (version 1.2.11, tar.gz format) and unzip:
 
 ```
 scp /Users/megangelement/Downloads/zlib-1.2.11.tar mgelem01@login.pax.tufts.edu:/cluster/tufts/cowenlab/Projects/Run_STAR_Express_Compare/stringtie
