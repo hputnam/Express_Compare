@@ -1,0 +1,7 @@
+﻿sample_num,sample_id,species,method
+X1101,1101,mcapitata,PolyA
+X1548,1548,mcapitata,PolyA
+X1628,1628,mcapitata,PolyA
+Sample4,1101,mcapitata,RiboFree
+Sample5,1548,mcapitata,RiboFree
+Sample6,1628,mcapitata,RiboFree

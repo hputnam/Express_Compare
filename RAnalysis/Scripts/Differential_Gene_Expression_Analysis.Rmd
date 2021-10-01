@@ -1,0 +1,230 @@
+---
+title: "RNA_seq_DESeq2"
+author: "hputnam"
+edited by: "hputnam"
+date: "9/02/2021"
+output: html_document
+---
+
+
+## RNAseq Differential Expression Analysis 
+
+Load libraries
+```{r, message=FALSE, warning=FALSE}
+
+library("tidyverse")
+library("genefilter")
+library("DESeq2")
+library("goseq")
+
+# library("factoextra")
+# library("MuMIn")
+# library("NbClust")
+# library("ComplexHeatmap")
+# library("tidyverse")
+# library("tidyr")
+# library("lme4")
+# library("RColorBrewer")
+# library("magrittr")
+# library("ggplot2")
+# library("goseq")
+library("pheatmap")
+# library("stats")
+# library("gridExtra")
+# library("VennDiagram")
+# library("here")
+# library("plotrix")
+```
+
+Import the data files 
+```{r}
+#treatment information
+treatmentinfo <- read.csv("RAnalysis/Data/Mcap_RNAseq_metadata.csv", header = TRUE, sep = ",")
+rownames(treatmentinfo) <- treatmentinfo$sample_num
+str(treatmentinfo)
+head(treatmentinfo)
+
+#gene count matrix
+gcount <- as.data.frame(read.csv("RAnalysis/Data/Mcap_TRIMMOMATIC_HISAT2_gene_count_matrix.csv", row.names="gene_id"))
+dim(gcount)
+head(gcount)
+colSums(gcount)
+
+# Make sure treatment info ='s the rows of count data
+all(rownames(treatmentinfo) %in% colnames(gcount)) # must come out TRUE
+
+```
+
+
+##### Pre-filter gene counts
+## Pre-filtering our dataset to reduce the memory size dataframe, increase the speed of the transformation and testing functions, and improve quality of statistical analysis by removing low-coverage counts. Removed counts could represent outliers in the data and removing these improves sensitivity of statistical tests. We will filter out low coverage samples. 
+
+```{r}
+
+#Do we want to do any filtering?
+
+#why do we want to filter?
+
+#what do we want to filter?
+
+#how do we want to filter
+
+#Prefiltering versus DESeq2 default filtering
+#http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#indfilt
+
+
+filt <- filterfun(pOverA(0.5,10))
+
+#create filter for the counts data
+gfilt <- genefilter(gcount, filt)
+
+#identify genes to keep by count filter
+gkeep <- gcount[gfilt,]
+
+#identify gene lists
+gn.keep <- rownames(gkeep)
+
+#gene count data filtered in PoverA, P percent of the samples have counts over A
+gcount_filt <- as.data.frame(gcount[which(rownames(gcount) %in% gn.keep),])
+head(gcount_filt)
+dim(gcount_filt)
+
+
+```
+
+#Create a DESeqDataSet design from gene count matrix and labels. Here we set the design to look at treatment to test for any differences in gene expression across timepoints attributed to treatment.
+#not using DESeq due to random factors, but can still use this to visualize clusters
+```{r}
+#Set DESeq2 design
+gdds <- DESeqDataSetFromMatrix(countData = gcount_filt,
+                              colData = treatmentinfo,
+                              design = ~method)
+```
+
+#### Visualize gene count data
+
+We're looking to see if the samples of the same treatments cluster
+
+##### Log-transform the count data
+First we are going to log-transform the data using a variance stabilizing transforamtion (vst). This is only for visualization purposes. Essentially, this is roughly similar to putting the data on the log2 scale. It will deal with the sampling variability of low counts by calculating within-group variability (if blind=FALSE). Importantly, it does not use the design to remove variation in the data, and so can be used to examine if there may be any variability do to technical factors such as extraction batch effects.
+
+To do this we first need to calculate the size factors of our samples. This is a rough estimate of how many reads each sample contains compared to the others. In order to use VST (the faster log2 transforming process) to log-transform our data, the size factors need to be less than 4. Otherwise, there could be artifacts in our results.
+```{r}
+SF.gdds <- estimateSizeFactors(gdds) #estimate size factors to determine if we can use vst  to transform our data. Size factors should be less than four to use vst
+print(sizeFactors(SF.gdds)) #View size factors
+```
+
+Our size factors are all less than 4, so we can use VST!
+```{r}
+gvst <- vst(gdds, blind=FALSE) #apply a variance stabilizing transformation to minimize effects of small counts and normalize library size
+```
+
+#### Principal component plot of samples
+```{r}
+gPCAdata <- plotPCA(gvst, intgroup = c("method"), returnData=TRUE)
+percentVar <- round(100*attr(gPCAdata, "percentVar")) #plot PCA of samples with all data
+ggplot(gPCAdata, aes(PC1, PC2, color=method)) + 
+  geom_point(size=3) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) +
+  #scale_color_manual(values = c(PolyA="slateblue", RiboFree="indianred3")) +
+  coord_fixed() +
+  theme_bw() + #Set background color
+  theme(panel.border = element_blank(), # Set border
+                     #panel.grid.major = element_blank(), #Set major gridlines
+                     #panel.grid.minor = element_blank(), #Set minor gridlines
+                     axis.line = element_line(colour = "black"), #Set axes color
+        plot.background=element_blank()) + #Set the plot background
+  theme(legend.position = ("none")) #set title attributes
+```
+
+##### Run DE analysis for overall example 
+
+#Run differential expression test using a Wald model. 
+```{r, message = FALSE}
+DEGSeq2_wald <- DESeq(gdds, test = "Wald") #run differential expression test by group using the Wald model
+```
+
+#Explore significant p-values for treatment
+```{r, message = FALSE}
+DEGSeq2.results <- results(DEGSeq2_wald, contrast=c("method","PolyA","RiboFree")) 
+head(DEGSeq2.results)
+sum(DEGSeq2.results$padj < 0.05, na.rm=TRUE) #How many adjusted p-values were less than 0.05
+
+#create data frame with only DESeq2 DEG's with < 0.05 significance 
+
+DEGSeq2.sig.results <- subset(DEGSeq2.results, padj < 0.05)
+DEGSeq2.sig.results <- as.data.frame(DEGSeq2.sig.results)
+DEGSeq2.sig.results$gene_id <-rownames(DEGSeq2.sig.results)
+write.csv(DEGSeq2.sig.results, 'RAnalysis/Output/DEGsig.results.csv')  
+
+```
+
+## Visualize differentially expressed genes from DESeq2
+```{r}
+# Subset list of genes by those which padj>0.05
+DEGSeq2.output <- as.data.frame(DEGSeq2.sig.results)
+dim(DEGSeq2.output)
+DEGSeq2.results.all <- DEGSeq2.sig.results
+DEGSeq2 <- rownames(DEGSeq2.results.all) # list all gene names 
+DEGSeq2 <- unique(DEGSeq2) # select only unique gene names 
+DEGSeq2_list <- gdds[which(rownames(gdds) %in% DEGSeq2)] # filter gdds DESeq2 object by unique gene names
+dim(DEGSeq2_list) # 15 x 15
+print(counts(DEGSeq2_list))
+
+# As determined above, size factors all less than 4, so proceed with VST
+# apply a variance stabilizing transformation to minimize effects of small counts and normalize library size
+
+DEGvst <- vst(DEGSeq2_list, blind = FALSE, nsub = nrow(counts(DEGSeq2_list)))
+
+dim(DEGvst) # 15 x 15
+print(assay(DEGvst)) # look at vst-transformed gene count data 
+
+# Plot heat map with diff expressed genes
+# Make a matrix for computing similarity
+mat <- assay(DEGvst)#[DEG.results.all, ] # make an expression object
+mat <- mat - rowMeans(mat) #difference in expression compared to average across all samples
+dim(mat)
+ann_colors <- list(treatment= c(PolyA="black", RiboFree="cadetblue3"))
+df_DEGSeq2 <- as.data.frame(colData(DEGvst)[c("method")]) #make dataframe for column naming and associated treatment
+DEGSeq2_heatmap <- pheatmap(mat, scale= "row", legend=TRUE, annotation_legend=TRUE, annotation_col=df_DEGSeq2, annotation_colors = ann_colors,
+                            clustering_distance_rows="euclidean", clustering_method = "average",
+                            show_rownames =FALSE,
+                            show_colnames =TRUE,
+                            cluster_cols = TRUE)
+
+pdf(file = "RAnalysis/Output/DEGSeq2_heatmap.pdf")
+DEGSeq2_heatmap
+dev.off()
+
+
+# PCA plot of diff-expressed genes 
+DEGSeq2_PCAdata <- plotPCA(DEGvst, intgroup = c("method"), returnData=TRUE)
+percentVar_pca <- round(100*attr(DEGSeq2_PCAdata, "percentVar")) #plot PCA of samples with all data
+DEGSeq2_PCA_plot <- ggplot(DEGSeq2_PCAdata, aes(PC1, PC2, color=method)) +
+  geom_point(size=3) +
+  xlab(paste0("PC1: ",percentVar_pca[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar_pca[2],"% variance")) +
+  scale_color_manual(values = c(PolyA="black", RiboFree="cadetblue3")) +
+  coord_fixed() +
+  theme_bw() + #Set background color
+  theme(panel.border = element_blank(), # Set border
+        #panel.grid.major = element_blank(), #Set major gridlines
+        #panel.grid.minor = element_blank(), #Set minor gridlines
+        axis.line = element_line(colour = "black"), #Set axes color
+        plot.background=element_blank()) #Set the plot background
+
+DEGSeq2_PCA_plot
+
+ggsave(path = "RAnalysis/Output/", filename = "DEGSeq2_PCA_plot.pdf")
+
+# PCA plot is of deferentially expressed genes only
+
+# Save results
+
+write.csv(counts(DEGSeq2_list), file="RAnalysis/Output/DEGSeq2_list_unique.csv")
+
+```
+
+
+
