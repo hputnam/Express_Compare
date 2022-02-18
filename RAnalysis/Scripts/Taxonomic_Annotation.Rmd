@@ -1,0 +1,418 @@
+---
+title: "EC_Taxonomic_Annotation"
+author: "LaurenZane"
+date: "1/28/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r }
+## IMPORTANT: you have to PAY ATTENTION to which intersections you are calling
+## what SPECIES? which library prep method are you using? WHY are looking at these intersections?
+## recall Mcap samples: 1101, 1548, 1628, Sample 4, Sample 5, Sample 6
+## Pacuta: 1041, 1471, 1637, Sample 1, Sample 2, Sample 3
+library("tidyverse")
+library("dplyr")
+```
+
+1. Loading dataframes from tabular formatted BLAST output
+```{r }
+## load tab separated format BLAST output for symbiont and create df
+## Mcap symbiont 
+sym_1101 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1101_sym_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_1101) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_1548 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1548_sym_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_1548) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_1628 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1628_sym_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_1628) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_Sample4 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample4_sym_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_Sample4) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_Sample5 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample5_sym_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_Sample5) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_Sample6 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample6_sym_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_Sample6) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+
+```{r }
+## Pacuta symbiont
+
+sym_1041 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1041_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_1041) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_1471 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1471_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_1471) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_1637 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1637_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_1637) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_Sample1 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample1_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_Sample1) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_Sample2 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample2_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_Sample2) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+sym_Sample3 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample3_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(sym_Sample3) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+
+```{r }
+## load tab separated format BLAST output for bacteria and create df
+## Mcap bacteria
+bac_1101 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1101_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_1101) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_1548 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1548_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_1548) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_1628 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1628_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_1628) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_Sample4 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample4_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_Sample4) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_Sample5 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample5_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_Sample5) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_Sample6 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample6_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_Sample6) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+
+```{r }
+## Pacuta bacteria
+
+bac_1041 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1041_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_1041) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_1471 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1471_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_1471) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_1637 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1637_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_1637) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_Sample1 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample1_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_Sample1) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_Sample2 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample2_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_Sample2) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+bac_Sample3 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample3_bac_blast_results.txt", sep = "\t", header = FALSE)
+colnames(bac_Sample3) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+
+```{r }
+## load tab separated format BLAST output for virus and create df with NCBI headers
+## Mcap virus
+virus_1101 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1101_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_1101) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_1548 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1548_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_1548) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_1628 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1628_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_1628) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_Sample4 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample4_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_Sample4) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_Sample5 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample5_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_Sample5) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_Sample6 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample6_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_Sample6) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+```
+
+
+```{r }
+## Pacuta virus
+virus_1041 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1041_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_1041) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_1471 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1471_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_1471) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_1637 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/1637_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_1637) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_Sample1 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample1_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_Sample1) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_Sample2 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample2_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_Sample2) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+virus_Sample3 <- read.delim("/Users/laurenzane/Desktop/Putnam_Lab/Express_Compare/BLAST_results/Sample3_virus_blast_results.txt", sep = "\t", header = FALSE)
+colnames(virus_Sample3) <- c("qseqid","sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+
+```
+2. Identify BLAST hits that are only found in either symbiont or bacteria or virus ONLY 
+using: Mcap: 1101 (PolyA), Sample4(RiboFree)
+Pacuta: 1041 (PolyA), Sample 1(RiboFree)
+```{r}
+## strategy: identify overlapping bacteria/symbiont, bacteria/virus, symbiont/virus and hits common to all, then remove from data frame using antijoin. 
+
+## find intersection of 2 taxa, subset the rows that intersect in two dataframes 
+## Mcap 
+
+mcap_bac_virus <- intersect(bac_1101$qseqid, virus_1101$qseqid)# blast queries common to bac/virus
+length(mcap_bac_virus) #3548
+c(mcap_bac_virus) #creating a list from intersecting queries
+bac_virus_subset_1101 <- subset(bac_1101, bac_1101$qseqid %in% mcap_bac_virus) #using subset to create
+# a dataframe with bac/virus intersecting queries
+bac_virus_subset_1101 %>% count(qseqid) #3548 rows
+dim(bac_virus_subset_1101) #3548 rows
+virus_bac_subset_1101 <- subset(virus_1101, virus_1101$qseqid %in% mcap_bac_virus)
+
+mcap_bac_sym <- intersect(bac_1101$qseqid, sym_1101$qseqid)
+length(mcap_bac_sym) #22287 rows
+c(mcap_bac_sym)
+bac_sym_subset_1101 <- subset(bac_1101, bac_1101$qseqid %in% mcap_bac_sym)
+bac_sym_subset_1101 %>% count(qseqid) #22287 rows
+sym_bac_subset_1101 <- subset(sym_1101, sym_1101$qseqid %in% mcap_bac_sym)
+
+
+mcap_virus_sym <- intersect(sym_1101$qseqid, virus_1101$qseqid)
+length(mcap_virus_sym) #7869 rows
+c(mcap_virus_sym)
+virus_sym_subset_1101 <- subset(virus_1101, virus_1101$qseqid %in% mcap_virus_sym)
+virus_sym_subset_1101 %>% count(qseqid) #7869 rows
+sym_virus_subset_1101 <- subset(sym_1101, sym_1101$qseqid %in% mcap_virus_sym)
+
+## intersection of all three taxa in mcap
+mcap_polya_all <- intersect(mcap_bac_sym, virus_1101$qseqid)
+c(mcap_polya_all)
+length(mcap_polya_all) #1232
+all_subset_1101 <- subset(sym_1101, sym_1101$qseqid %in% mcap_polya_all)
+all_subset_1101 %>% count(qseqid) #1232
+```
+
+
+```{r}
+## remove intersections of 2 taxa to create dataframes with only 1 taxa
+
+## Mcap bacteria ONLY. original df has 77862 rows
+only_bac_df <- anti_join(bac_1101, bac_sym_subset_1101)#removing rows with intersection of bac/sym
+dim(only_bac_df) #50209 rows
+only_bac_df2 <- anti_join(only_bac_df, bac_virus_subset_1101) #removing rows with intersection of bac/virus
+dim(only_bac_df2) #47582
+
+## Mcap virus ONLY. original df has 14329 rows
+dim(virus_1101)
+dim(virus_sym_subset_1101)
+only_virus_df <- anti_join(virus_1101, virus_sym_subset_1101)#removing rows with intersection of sym/virus
+dim(only_virus_df)#6246
+only_virus_df2 <- anti_join(only_virus_df, virus_bac_subset_1101)
+dim(only_virus_df2) #3854
+
+## Mcap symbiont ONLY. original df has 3492794
+dim(sym_1101)
+dim(bac_sym_subset_1101)
+only_sym_df <- anti_join(sym_1101, sym_bac_subset_1101)
+dim(only_sym_df) #3458600
+only_sym_df2 <- anti_join(only_sym_df, sym_virus_subset_1101)
+dim(only_sym_df2) #3451820
+
+```
+
+3. Assign reads that overlapped in two databases to one database based on e-value
+```{r}
+## strategy: create new data frame from reads that were removed from the original data frame. These should contain reads that overlap in two data frames. By removing these, we are left with hits that BLASTed to three databases...the mystery reads that cannot be definitively assigned.
+
+library("dbplyr")
+library("plyr")
+library("tibble")
+
+#create a function to return the larger of the two values in bitscore to be used in group_modify
+
+bigger <- function(bitscore){
+  return(max(bitscore))
+}
+
+
+
+x <- join(bac_sym_subset_1101, sym_bac_subset_1101, type = "full" ) 
+
+y <- x %>%
+  group_by(qseqid)%>%
+  group_modify(~{
+    bigger(.x$bitscore)%>%
+    tibble::enframe(name = "qseqid", value = "bigger")
+  })
+
+## cut offs based on length and e-value; plot length and e-value
+## e-value is a function of length and mismatches
+## are they all long?
+## plot length vs e-value and separate based on org? 
+## it is ok for there to be reads you can't separate!
+
+min(x$length)
+hist(x$length)
+# 29
+max(x$evalue)
+## example 
+#filt <- filter(x, qseqid == "GWNJ-0965:586:GW2003303023rd:3:1101:9110:3137")
+
+
+
+## add select function
+
+deframe(y)
+
+           
+hist(x$bitscore)
+mean(x$length)
+filt2 <- filter(x, length < 100)
+
+z <- filt2 %>% group_by(sseqid)
+
+#133.2857
+hist(sym_bac_subset_1101$bitscore)
+#164.5511
+sub <- filter(bac_sym_subset_1101, bitscore < 133)
+sub2 <- filter(sym_bac_subset_1101, bitscore > 164)
+meep <- intersect(sub$qseqid,sub2$qseqid) 
+as.factor(meep)
+#8786
+
+```
+
+
+```{r }
+## common hits among bacteria BLAST results in Mcap RiboFree preparation 
+intersect_bac_S4_S5 <- intersect(bac_Sample4$sseqid, bac_Sample5$sseqid)
+as.factor(intersect_bac_S4_S5)
+intersect_bac_S5_S6 <-intersect(bac_Sample5$sseqid, bac_Sample6$sseqid)
+as.factor(intersect_bac_S5_S6)
+intersect_bac_S4_S6 <- intersect(bac_Sample4$sseqid, bac_Sample6$sseqid)
+as.factor(intersect_bac_S4_S6)
+intersect_bac_mcap_ribofree <- intersect(intersect_bac_S4_S5, bac_Sample6$sseqid)
+as.factor(intersect_bac_mcap_ribofree)
+
+## common hits among bacteria BLAST results in Mcap PolyA depletion preparation
+intersect_bac_1101_1548 <- intersect(bac_1101$sseqid, bac_1548$sseqid)
+as.factor(intersect_bac_1101_1548)
+intersect_bac_1101_1628 <- intersect(bac_1101$sseqid, bac_1628$sseqid)
+as.factor(intersect_bac_1101_1628)
+intersect_bac_1548_1628 <- intersect(bac_1548$sseqid, bac_1628$sseqid)
+as.factor(intersect_bac_1548_1628)
+intersect_bac_mcap_poly_a <- intersect(intersect_bac_1101_1548, bac_1628$sseqid)
+as.factor(intersect_bac_mcap_poly_a)
+
+## common hits among bacteria BLAST hits in ALL Mcap samples
+intersect_bac_mcap_all <- intersect(intersect_bac_mcap_ribofree, intersect_bac_mcap_poly_a)
+as.factor(intersect_bac_mcap_all)
+print(intersect_bac_mcap_all)
+```
+
+
+```{r }
+## common hits among virus BLAST results in Mcap RiboFree preparation 
+intersect_virus_S4_S5 <- intersect(virus_Sample4$sseqid, virus_Sample5$sseqid)
+as.factor(intersect_virus_S4_S5)
+intersect_virus_S5_S6 <-intersect(virus_Sample5$sseqid, virus_Sample6$sseqid)
+as.factor(intersect_virus_S5_S6)
+intersect_virus_S4_S6 <- intersect(virus_Sample4$sseqid, virus_Sample6$sseqid)
+as.factor(intersect_virus_S4_S6)
+intersect_virus_mcap_ribofree <- intersect(intersect_virus_S4_S5, virus_Sample6$sseqid)
+as.factor(intersect_virus_mcap_ribofree)
+
+## common hits among virus BLAST results in Mcap PolyA depletion preparation
+intersect_virus_1101_1548 <- intersect(virus_1101$sseqid, virus_1548$sseqid)
+as.factor(intersect_virus_1101_1548)
+intersect_virus_1101_1628 <- intersect(virus_1101$sseqid, virus_1628$sseqid)
+as.factor(intersect_virus_1101_1628)
+intersect_virus_1548_1628 <- intersect(virus_1548$sseqid, virus_1628$sseqid)
+as.factor(intersect_virus_1548_1628)
+
+intersect_virus_mcap_poly_a <- intersect(intersect_virus_1101_1548, virus_1628$sseqid)
+as.factor(intersect_virus_mcap_poly_a)
+
+## common hits among virus BLAST hits in ALL Mcap samples
+intersect_virus_mcap_all <- intersect(intersect_virus_mcap_ribofree, intersect_virus_mcap_poly_a)
+as.factor(intersect_Mcap_all)
+
+```
+
+
+```{r }
+## common hits among virus BLAST results in Pacuta RiboFree preparation 
+intersect_S1_S2 <- intersect(virus_Sample1$sseqid, virus_Sample2$sseqid)
+as.list(intersect_S1_S2)
+intersectS1_S2_S3 <- intersect(intersect1, virus_Sample6$sseqid)
+as.list(intersectS1_S2_S3)
+
+## common hits among virus BLAST results in Pacuta PolyA depletion preparation
+intersect_1041_1471 <- intersect(virus_1041$sseqid, virus_1471$sseqid)
+as.list(intersect_1041_1471)
+
+intersect_1041_1471_1637 <- intersect(intersect_1041_1471, virus_1637$sseqid)
+as.list(intersect_1041_1471_1637)
+
+## common hits among virus BLAST hits in ALL Mcap samples
+intersect_Pacuta_all <- intersect(intersect_1041_1471_1637, intersectS1_S2_S3)
+print(intersect_Pacuta_all)
+
+
+## common hits among symbiont BLAST results
+```
+
+
+```{r }
+## subsetting dataframes from bacteria and virus blast results consisting of complete rows with blast hits common across Mcap samples
+
+all_mcap_virus_list <- c(intersect_virus_mcap_all)
+print(all_mcap_virus_list)
+length(all_mcap_virus_list)
+
+virus_subset_1101 <- subset(virus_1101, virus_1101$sseqid %in% all_mcap_virus_list)
+dim(virus_subset_1101)
+virus_subset_1101 %>% count(sseqid)
+
+virus_subset_1548 <- subset(virus_1548, virus_1548$sseqid %in% all_mcap_virus_list)
+dim(virus_subset_1548)
+virus_subset_1548 %>% count(sseqid)
+
+virus_subset_1628 <- subset(virus_1628, virus_1628$sseqid %in% all_mcap_virus_list)
+dim(virus_subset_1628)
+virus_subset_1628 %>% count(sseqid)
+
+virus_subset_S4 <- subset(virus_Sample4, virus_Sample4$sseqid %in% all_mcap_virus_list)
+dim(virus_subset_S4)
+virus_subset_S4 %>% count(sseqid)
+
+
+length(intersect_by_query)
+all_mcap_bac_list <- c(intersect_bac_mcap_all)
+length(all_mcap_bac_list)
+bac_subset_1101 <- subset(bac_1101, bac_1101$sseqid %in% all_mcap_bac_list)
+df2 %>% count(sseqid)
+
+1101_query_intersect <- intersect(df1$qseqid, df2$qseqid)
+head(query_intersect)
+length(query_intersect)
+
+## subsetting again based on intersecting qsedid 
+```
+
+
+```{r }
+
+
+df3 <- subset(df1, df1$qseqid %in% query_intersect)
+df4 <- subset(df3, df3$qseqid == "GWNJ-0965:586:GW2003303023rd:3:1108:1753:16481")
+df5 <- subset(df2, df2$qseqid %in% query_intersect)
+df6 <- subset(df5, df5$qseqid == "GWNJ-0965:586:GW2003303023rd:3:1108:1753:16481")
+df3 %>% count(qseqid)
+
+```
+
+
+```{r }
+## intersection of bacteria/symbiont
+
+
+## intersection of virus/symbiont
+
+
+## intersection of bacteria/virus
+
+
+## intersection of bacteria/virus/symbiont
+
+
+
+
+  
+  
+  
+
+
+
+## 
+```
