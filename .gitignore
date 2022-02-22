@@ -1,3 +1,4 @@
+# R project gitignore template from: https://github.com/github/gitignore/blob/main/R.gitignore
 # History files
 .Rhistory
 .Rapp.history
