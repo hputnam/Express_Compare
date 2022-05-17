@@ -1,8 +1,8 @@
 ---
 title: "RNA_seq_DESeq2"
 author: "hputnam"
-edited by: "hputnam"
-date: "9/02/2021"
+edited by: "laurenzane"
+date: "5/16/2022"
 output: html_document
 ---
 
@@ -17,16 +17,17 @@ library("genefilter")
 library("DESeq2")
 library("goseq")
 
+
 # library("factoextra")
 # library("MuMIn")
 # library("NbClust")
 # library("ComplexHeatmap")
-# library("tidyverse")
+library("tidyverse")
 # library("tidyr")
 # library("lme4")
 # library("RColorBrewer")
 # library("magrittr")
-# library("ggplot2")
+library("ggplot2")
 # library("goseq")
 library("pheatmap")
 # library("stats")
@@ -39,13 +40,13 @@ library("pheatmap")
 Import the data files 
 ```{r}
 #treatment information
-treatmentinfo <- read.csv("RAnalysis/Data/Mcap_RNAseq_metadata.csv", header = TRUE, sep = ",")
+treatmentinfo <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Mcap_RNAseq_metadata.csv", header = TRUE, sep = ",")
 rownames(treatmentinfo) <- treatmentinfo$sample_num
 str(treatmentinfo)
 head(treatmentinfo)
 
 #gene count matrix
-gcount <- as.data.frame(read.csv("RAnalysis/Data/Mcap_TRIMMOMATIC_HISAT2_gene_count_matrix.csv", row.names="gene_id"))
+gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/hisat2_workflow/counts_matrices/MCap_gene_matrix.csv", row.names="gene_id"))
 dim(gcount)
 head(gcount)
 colSums(gcount)
@@ -123,7 +124,7 @@ gvst <- vst(gdds, blind=FALSE) #apply a variance stabilizing transformation to m
 ```{r}
 gPCAdata <- plotPCA(gvst, intgroup = c("method"), returnData=TRUE)
 percentVar <- round(100*attr(gPCAdata, "percentVar")) #plot PCA of samples with all data
-ggplot(gPCAdata, aes(PC1, PC2, color=method)) + 
+PCAplot <- ggplot(gPCAdata, aes(PC1, PC2, color=method)) + 
   geom_point(size=3) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   ylab(paste0("PC2: ",percentVar[2],"% variance")) +
@@ -135,7 +136,14 @@ ggplot(gPCAdata, aes(PC1, PC2, color=method)) +
                      #panel.grid.minor = element_blank(), #Set minor gridlines
                      axis.line = element_line(colour = "black"), #Set axes color
         plot.background=element_blank()) + #Set the plot background
-  theme(legend.position = ("none")) #set title attributes
+  theme(legend.position = ("none")) + #set title attributes
+  ggtitle("Montipora capitata")
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCapPCAplot.pdf") #create file to save locally in the output folder
+PCAplot
+dev.off()
+
+
 ```
 
 ##### Run DE analysis for overall example 
@@ -156,7 +164,7 @@ sum(DEGSeq2.results$padj < 0.05, na.rm=TRUE) #How many adjusted p-values were le
 DEGSeq2.sig.results <- subset(DEGSeq2.results, padj < 0.05)
 DEGSeq2.sig.results <- as.data.frame(DEGSeq2.sig.results)
 DEGSeq2.sig.results$gene_id <-rownames(DEGSeq2.sig.results)
-write.csv(DEGSeq2.sig.results, 'RAnalysis/Output/DEGsig.results.csv')  
+write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCapDEGSeq2.sig.results.csv')  
 
 ```
 
@@ -175,7 +183,7 @@ print(counts(DEGSeq2_list))
 # As determined above, size factors all less than 4, so proceed with VST
 # apply a variance stabilizing transformation to minimize effects of small counts and normalize library size
 
-DEGvst <- vst(DEGSeq2_list, blind = FALSE, nsub = nrow(counts(DEGSeq2_list)))
+DEGvst <- vst(DEGSeq2_list, blind = FALSE) #nsub = nrow(counts(DEGSeq2_list)))
 
 dim(DEGvst) # 15 x 15
 print(assay(DEGvst)) # look at vst-transformed gene count data 
@@ -193,11 +201,13 @@ DEGSeq2_heatmap <- pheatmap(mat, scale= "row", legend=TRUE, annotation_legend=TR
                             show_colnames =TRUE,
                             cluster_cols = TRUE)
 
-pdf(file = "RAnalysis/Output/DEGSeq2_heatmap.pdf")
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCapDEGSeq2_heatmap.pdf")
 DEGSeq2_heatmap
 dev.off()
+```
 
 
+```{r}
 # PCA plot of diff-expressed genes 
 DEGSeq2_PCAdata <- plotPCA(DEGvst, intgroup = c("method"), returnData=TRUE)
 percentVar_pca <- round(100*attr(DEGSeq2_PCAdata, "percentVar")) #plot PCA of samples with all data
@@ -212,19 +222,51 @@ DEGSeq2_PCA_plot <- ggplot(DEGSeq2_PCAdata, aes(PC1, PC2, color=method)) +
         #panel.grid.major = element_blank(), #Set major gridlines
         #panel.grid.minor = element_blank(), #Set minor gridlines
         axis.line = element_line(colour = "black"), #Set axes color
-        plot.background=element_blank()) #Set the plot background
+        plot.background=element_blank())+ #Set the plot background
+  ggtitle("Montipora captitata")
 
 DEGSeq2_PCA_plot
 
-ggsave(path = "RAnalysis/Output/", filename = "DEGSeq2_PCA_plot.pdf")
+ggsave(path = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output", filename = "MCap_DEGSeq2_PCA_plot.pdf")
 
 # PCA plot is of deferentially expressed genes only
 
 # Save results
 
-write.csv(counts(DEGSeq2_list), file="RAnalysis/Output/DEGSeq2_list_unique.csv")
+write.csv(counts(DEGSeq2_list), file="/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/MCapDEGSeq2_list_unique.csv")
 
 ```
 
+```{r}
+library(psych)
+library(graphics)
+# creating pairs panels 
+
+# unfiltered from counts data 
+
+gcount.pairs <- pairs.panels(gcount,hist.col = "red", cex.labels = 1.25)
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCap_unfilteredpairs.pdf")
+gcount.pairs
+dev.off()
+
+# zeros in both data sets removed 
+
+gcount.no.zeros <- filter(gcount, X1101 > "0", X1548 > "0", X1628  > "0", Sample4 > "0", Sample5 > "0", Sample6 > "0" )
+no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCap_nozeros_pairs.pdf")
+no.zeros.pairs
+dev.off()
+
+# pairs panel using filtered for p over a (0.5,10)
+
+gcount.filt.pairs <- pairs.panels(gcount_filt, hist.col = "orange", cex.labels = 1.25)
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCap_filtered_pairs.pdf")
+gcount.filt.pairs
+dev.off()
+
+```
 
 
