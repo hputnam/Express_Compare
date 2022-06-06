@@ -31,6 +31,8 @@ library("VennDiagram")
 ```
 ## load gene count matrix, gene length dataframe, and DESeq2 significant results dataframe
 ```{r}
+## filtered gene count matrix pOverA (0,5,1) from DESeq script
+
 gcount_filt <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/Pacuta_filtered_gene_count.csv") # gene counts filtered for PoverA(0.5,10)
 colnames(gcount_filt) # data frame does not currently have a true column for gene_id
 #gcount_filt <- tibble::rownames_to_column(gcount_filt, "gene_id") # create true column for gene_id
@@ -47,9 +49,8 @@ gcount_filt$gene_id <- gsub("t3","", as.character(gcount_filt$gene_id))# removes
 gcount_filt$gene_id <- gsub("t4","", as.character(gcount_filt$gene_id))# removes t4 from gene id
 gcount_filt$gene_id <- gsub("\\.*$","", as.character(gcount_filt$gene_id)) # removes . from end of gene id
 head(gcount_filt$gene_id)
-# unique_gcount <- unique(gcount_filt)
 
-
+# gene length data frame
 
 gene_lengths <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/length.mRNA_Pacuta.csv", row.names = NULL) # gene length information 
 gene_lengths$gene_id <- gsub("\\_t*$","", as.character(gene_lengths$gene_id))# removes t1 from gene id
@@ -67,7 +68,7 @@ gene_length_final <- as.data.frame(gene_lengths[which(rownames(gene_lengths) %in
 rownames(gene_length_final) <- gene_length_final$gene_id #assign row names to gene_id 
 print(rownames(gene_length_final)) #confirm that rownames are gene id's
 
-
+# DEG datframe from DESeq script 
 DEG <- read.csv("~/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2.sig.results.csv", row.names=NULL) # significantly differentially expressed genes from DESeq2 results (16285 genes)
 colnames(DEG) # DEG df already has a true column for gene id
 DEG <- subset (DEG, select = -gene_id)
@@ -116,11 +117,12 @@ GO.terms <- unique(GO.terms)
 ```{r}
 gcount_filt_length_merge <- inner_join(gcount_filt, gene_length_final, by = "gene_id")
 dim(gcount_filt_length_merge)
-unique_length_merge <- unique(gcount_filt_length_merge[1])
-length(unique_length_merge) # 684
+colnames(gcount_filt_length_merge)
+unique_length_merge <- unique(gcount_filt_length_merge[1]) # 684
 unique_length_merge2 <- rownames(unique_length_merge)
 length_merge_final <- as.data.frame(gcount_filt_length_merge[which(rownames(gcount_filt_length_merge) %in% unique_length_merge2),])# create a df that only includes unique gene ids 
-dim(length_merge_final)
+dim(length_merge_final) # 684 x 8
+
 
 ```
 ## create GO Seq vectors from all genes, DEGs, and gene lengths

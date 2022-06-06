@@ -1,0 +1,5 @@
+"","category","over_represented_pvalue","under_represented_pvalue","numDEInCat","numInCat","term","ontology"
+"11","GO:0042803",0.0967240021805821,0.986007676014486,3,5,"protein homodimerization activity","MF"
+"1","GO:0001664",0.0976652455605655,1,2,2,"G protein-coupled receptor binding","MF"
+"9","GO:0031852",0.0976652455605655,1,2,2,"mu-type opioid receptor binding","MF"
+"12","GO:0043565",0.0593553525503051,1,2,2,"sequence-specific DNA binding","MF"

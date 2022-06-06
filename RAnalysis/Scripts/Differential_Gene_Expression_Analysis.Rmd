@@ -40,13 +40,13 @@ library("pheatmap")
 Import the data files 
 ```{r}
 #treatment information
-treatmentinfo <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Mcap_RNAseq_metadata.csv", header = TRUE, sep = ",")
+treatmentinfo <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/Pacuta_RNA_seq_metadata.csv", header = TRUE, sep = ",")
 rownames(treatmentinfo) <- treatmentinfo$sample_num
 str(treatmentinfo)
 head(treatmentinfo)
 
 #gene count matrix
-gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/hisat2_workflow/counts_matrices/MCap_gene_matrix.csv", row.names="gene_id"))
+gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/PAcuta_gene_count_matrix.csv", row.names="gene_id"))
 dim(gcount)
 head(gcount)
 colSums(gcount)
@@ -89,6 +89,10 @@ gn.keep <- rownames(gkeep)
 gcount_filt <- as.data.frame(gcount[which(rownames(gcount) %in% gn.keep),])
 head(gcount_filt)
 dim(gcount_filt)
+
+# save gcount filt as a .csv file for GOSeq
+write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/Pacuta_filtered_gene_count.csv') 
+
 
 
 ```
@@ -137,9 +141,9 @@ PCAplot <- ggplot(gPCAdata, aes(PC1, PC2, color=method)) +
                      axis.line = element_line(colour = "black"), #Set axes color
         plot.background=element_blank()) + #Set the plot background
   theme(legend.position = ("none")) + #set title attributes
-  ggtitle("Montipora capitata")
+  ggtitle("Pocillopora acuta")
 
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCapPCAplot.pdf") #create file to save locally in the output folder
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaPCAplot.pdf") #create file to save locally in the output folder
 PCAplot
 dev.off()
 
@@ -164,7 +168,7 @@ sum(DEGSeq2.results$padj < 0.05, na.rm=TRUE) #How many adjusted p-values were le
 DEGSeq2.sig.results <- subset(DEGSeq2.results, padj < 0.05)
 DEGSeq2.sig.results <- as.data.frame(DEGSeq2.sig.results)
 DEGSeq2.sig.results$gene_id <-rownames(DEGSeq2.sig.results)
-write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCapDEGSeq2.sig.results.csv')  
+write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2.sig.results.csv')  
 
 ```
 
@@ -201,7 +205,7 @@ DEGSeq2_heatmap <- pheatmap(mat, scale= "row", legend=TRUE, annotation_legend=TR
                             show_colnames =TRUE,
                             cluster_cols = TRUE)
 
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCapDEGSeq2_heatmap.pdf")
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2_heatmap.pdf")
 DEGSeq2_heatmap
 dev.off()
 ```
@@ -227,13 +231,15 @@ DEGSeq2_PCA_plot <- ggplot(DEGSeq2_PCAdata, aes(PC1, PC2, color=method)) +
 
 DEGSeq2_PCA_plot
 
-ggsave(path = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output", filename = "MCap_DEGSeq2_PCA_plot.pdf")
+ggsave(path = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta", filename = "Pacuta_DEGSeq2_PCA_plot.pdf")
 
 # PCA plot is of deferentially expressed genes only
 
 # Save results
 
-write.csv(counts(DEGSeq2_list), file="/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/MCapDEGSeq2_list_unique.csv")
+write.csv(counts(DEGSeq2_list), "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2_list_unique.csv")
+
+
 
 ```
 
@@ -268,5 +274,35 @@ gcount.filt.pairs
 dev.off()
 
 ```
+# GO Seq preparing and loading relevant dataframes
+```{r}
+library(goseq) #installing package
+## recall that gcount_filt is the data frame contains all genes that are expressed (pOverA(0.5,10)
+## DEGSeq2.sig.results is the data frame that contains all differentially expressed genes 
+
+head(gcount_filt)
+gcount_filt2 <- tibble::rownames_to_column(gcount_filt, "gene_id") # creates column for gene id in the filtered gene count data frame
+head(gcount_filt2)
+# gcount_filt2$gene_id <- gsub("t1","", as.character(gcount_filt2$gene_id))# removes t1 from gene id
+# gcount_filt2$gene_id <- gsub("t2","", as.character(gcount_filt2$gene_id))# removes t2 from gene id
+# gcount_filt2$gene_id <- gsub("\\.*$","", as.character(gcount_filt2$gene_id)) # removes . from end of gene id
+print(gcount_filt2$gene_id)
+
+head(DEGSeq2.sig.results)
+DEGSeq2.sig.results2 <- tibble::rownames_to_column(DEGSeq2.sig.results, "gene_id")# create column for gene id in DEG significant results dataframe 
+# seems to already have gene_id
+print(colnames(DEGSeq2.sig.results))
+head(DEGSeq2.sig.results)
+# head(DEGSeq2.sig.results2)
+# DEGSeq2.sig.results2$gene_id<-gsub("t1","",as.character(DEGSeq2.sig.results2$gene_id))#removes t1 from gene id
+# DEGSeq2.sig.results2$gene_id<-gsub("t2","",as.character(DEGSeq2.sig.results2$gene_id))# removes t2 from gene id
+# DEGSeq2.sig.results2$gene_id<-gsub("\\.*$","",as.character(DEGSeq2.sig.results2$gene_id))#removes period at end of gene id 
+print(DEGSeq2.sig.results2$gene_id)
+
+
+```
+
+
+
 
 

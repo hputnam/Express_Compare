@@ -1,0 +1,7 @@
+sample_num,sample_id,species,method
+X1041.gtf,1041,pacuta,PolyA
+X1471.gtf,1471,pacuta,PolyA
+X1637.gtf,1637,pacuta,PolyA
+Sample1.gtf,1041,pacuta,RiboFree
+Sample2.gtf,1471,pacuta,RiboFree
+Sample3.gtf,1637,pacuta,RiboFree
