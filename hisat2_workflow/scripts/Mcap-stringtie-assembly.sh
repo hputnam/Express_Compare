@@ -10,5 +10,5 @@ module load SAMtools/1.10-GCC-8.3.0
 module load HISAT2/2.2.1-foss-2019b
 ids=("1101" "1628" "1548" "Sample4" "Sample5" "Sample6")
 for file in "${ids[@]}";
-do hisat2 -p 20 --rf --dta -q -x MCap/MCap -1 "$file"_R1_001.clean.fastq.gz -2 $
+stringtie -A gene_abundance/"$file".gene_abundance.tab --rf -e -G Montipora_capitata_HIv2.genes.gff3 -o "$file".gtf "$file".downsampled.bam
 samtools sort -@ 20 -o "$file".bam "$file".sam; done
