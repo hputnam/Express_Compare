@@ -33,7 +33,7 @@ library("VennDiagram")
 ```{r}
 ## filtered gene count matrix pOverA (0,5,1) from DESeq script
 
-gcount_filt <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/Pacuta_filtered_gene_count.csv") # gene counts filtered for PoverA(0.5,10)
+gcount_filt <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220608_Pacuta_filtered_gene_count.csv") # gene counts filtered for PoverA(0.5,10)
 colnames(gcount_filt) # data frame does not currently have a true column for gene_id
 #gcount_filt <- tibble::rownames_to_column(gcount_filt, "gene_id") # create true column for gene_id
 #gcount_filt <- subset (gcount_filt, select = -X)
@@ -69,7 +69,7 @@ rownames(gene_length_final) <- gene_length_final$gene_id #assign row names to ge
 print(rownames(gene_length_final)) #confirm that rownames are gene id's
 
 # DEG datframe from DESeq script 
-DEG <- read.csv("~/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2.sig.results.csv", row.names=NULL) # significantly differentially expressed genes from DESeq2 results (16285 genes)
+DEG <- read.csv("~/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220608_PacutaDEGSeq2.sig.results.csv", row.names=NULL) # significantly differentially expressed genes from DESeq2 results (16285 genes)
 colnames(DEG) # DEG df already has a true column for gene id
 DEG <- subset (DEG, select = -gene_id)
 colnames(DEG)[1] <- "gene_id"
@@ -115,13 +115,14 @@ GO.terms <- unique(GO.terms)
 ```
 # merge gene length dataframe with filtered counts as well as DEG df by gene_id. This ensures that gene id's are consistent across dataframes 
 ```{r}
-gcount_filt_length_merge <- inner_join(gcount_filt, gene_length_final, by = "gene_id")
+gcount_filt_length_merge <- merge(gcount_filt, gene_length_final, by = "gene_id")
 dim(gcount_filt_length_merge)
 colnames(gcount_filt_length_merge)
 unique_length_merge <- unique(gcount_filt_length_merge[1]) # 684
 unique_length_merge2 <- rownames(unique_length_merge)
 length_merge_final <- as.data.frame(gcount_filt_length_merge[which(rownames(gcount_filt_length_merge) %in% unique_length_merge2),])# create a df that only includes unique gene ids 
 dim(length_merge_final) # 684 x 8
+# update 20220608
 
 
 ```
@@ -133,13 +134,15 @@ IDvector <- length_merge_final$gene_id
 is.vector(IDvector) # needs to be TRUE
 length(IDvector)
 # 684
+# updated 23054
 length(unique(IDvector))
 # 684
 
 ## DEG vector
 
 DEG_vector <- length_merge_final[length_merge_final$gene_id %in% DEG$gene_id, ]
-dim(DEG_vector) # 185
+dim(DEG_vector) # 185 
+# updated 6068
 DEG_names <- as.vector(DEG$gene_id)
 gene_vector <- as.integer(length_merge_final$gene_id%in%DEG_names)
 names(gene_vector) <- length_merge_final$gene_id
@@ -156,6 +159,7 @@ is.vector(length.vector)# TRUE, is a vector
 length(length.vector)
 
 # 684
+# 23054 updated 20220608
 
 head(gene_vector)
 print(gene_vector)
@@ -183,28 +187,29 @@ pwf = nullp(gene_vector, IDvector, bias.data = length.vector)
 ```{r}
 ?goseq
 GO.wall<-goseq(pwf, IDvector, gene2cat=GO.terms, method="Wallenius", use_genes_without_cat=TRUE) # perform GOSeq
-write.csv(GO.wall, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/GO.wall.csv") # write csv to save to Output
+write.csv(GO.wall, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/20220608_GO.wall.csv") # write csv to save to Output
 ```
 ## find significantly enriched GO terms
 ```{r}
-enriched.GO.1.a<-GO.wall$category[GO.wall$over_represented_pvalue<.1]
-enriched.GO.1<-data.frame(enriched.GO.1.a)
-colnames(enriched.GO.1) <- c("category")
-enriched.GO.1 <- merge(enriched.GO.1, GO.wall, by="category")
-enriched.GO.1 <- enriched.GO.1[order(-enriched.GO.1$numDEInCat),]
-enriched.GO.1$term <- as.factor(enriched.GO.1$term)
-head(enriched.GO.1)
+enriched.GO.05.a<-GO.wall$category[GO.wall$over_represented_pvalue<.05]
+enriched.GO.05<-data.frame(enriched.GO.05.a)
+colnames(enriched.GO.05) <- c("category")
+enriched.GO.05 <- merge(enriched.GO.05, GO.wall, by="category")
+enriched.GO.05 <- enriched.GO.05[order(-enriched.GO.05$numDEInCat),]
+enriched.GO.05$term <- as.factor(enriched.GO.05$term)
+head(enriched.GO.05)
 
 # Subset enriched GO terms by ontology (BP, CC, MF) and save as csv. 
-MF <- subset(enriched.GO.1, ontology=="MF")
+MF <- subset(enriched.GO.05, ontology=="MF")
 MF <- MF[order(-MF$numDEInCat),]
-CC <- subset(enriched.GO.1, ontology=="CC") 
+CC <- subset(enriched.GO.05, ontology=="CC") 
 CC <- CC[order(-CC$numDEInCat),] 
-BP <- subset(enriched.GO.1, ontology=="BP")
+BP <- subset(enriched.GO.05, ontology=="BP")
 BP <- BP[order(-BP$numDEInCat),]
-write.csv(MF, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/Pacuta_MF_Sig_Enriched_GO_20220604.csv")
-write.csv(CC, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeqPacuta_CC_Sig_Enriched_GO_20220604.csv")
-write.csv(BP, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/Pacuta_BP_Sig_Enriched_GO_20220604.csv")
-write.csv(enriched.GO.1, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/Pacuta_Sig_Enriched_GO_20220604.csv")
+
+write.csv(MF, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/Pacuta_MF_Sig_Enriched_GO_20220608.csv")
+write.csv(CC, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeqPacuta_CC_Sig_Enriched_GO_20220608.csv")
+write.csv(BP, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/Pacuta_BP_Sig_Enriched_GO_20220608.csv")
+write.csv(enriched.GO.05, file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/GOSeq/Pacuta_Sig_Enriched_GO_20220608.csv")
 ```
 
