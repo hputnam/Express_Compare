@@ -191,6 +191,9 @@ PCAplot <- ggplot(gPCAdata, aes(PC1, PC2, color=method)) +
 PCAplot
 dev.off()
 
+## sometimes dev.off() doesn't work, you can also use ggsave
+ggsave(path = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta", filename = "PacutaPCAplot.pdf")
+
 
 ```
 
@@ -252,7 +255,8 @@ DEGSeq2_heatmap <- pheatmap(mat, scale= "row", legend=TRUE, annotation_legend=TR
 
 pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2_heatmap.pdf")
 DEGSeq2_heatmap
-dev.off
+dev.off()
+
 ```
 
 
@@ -295,27 +299,31 @@ library(graphics)
 
 # unfiltered from counts data 
 
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610Pacuta_unfilteredpairs.pdf")
 gcount.pairs <- pairs.panels(gcount,hist.col = "red", cex.labels = 1.25)
-
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCap_unfilteredpairs.pdf")
-gcount.pairs
 dev.off()
+
 
 # zeros in both data sets removed 
+gcount.no.zeros <- filter(gcount, X1041.gtf > "0", X1471.gtf > "0", X1637.gtf  > "0", Sample1.gtf > "0", Sample2.gtf > "0", Sample3.gtf > "0" )# use for pacuta
 
-gcount.no.zeros <- filter(gcount, X1101 > "0", X1548 > "0", X1628  > "0", Sample4 > "0", Sample5 > "0", Sample6 > "0" )
+gcount.no.zeros <- filter(gcount, X1101 > "0", X1548 > "0", X1628  > "0", Sample4 > "0", Sample5 > "0", Sample6 > "0" ) # use for mcap
+
+## now create pairs panels
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610_Pacuta_nozeros_pairs.pdf")
 no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
-
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCap_nozeros_pairs.pdf")
-no.zeros.pairs
 dev.off()
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Mcap/20220610_Mcap_nozeros_pairs.pdf")
+no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
+dev.off()
+
 
 # pairs panel using filtered for p over a (0.5,10)
 
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610_Pacuta_filtered_pairs.pdf")
 gcount.filt.pairs <- pairs.panels(gcount_filt, hist.col = "orange", cex.labels = 1.25)
-
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/MCap_filtered_pairs.pdf")
-gcount.filt.pairs
 dev.off()
 
 ```
