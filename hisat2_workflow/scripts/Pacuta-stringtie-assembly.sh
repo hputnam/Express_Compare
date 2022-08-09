@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name="ZaneStringtieAssemblyPAcuta"
+#SBATCH --job-name="ZaneStringtieAssemblyPAcutaV2"
 #SBATCH -t 100:00:00
 #SBATCH --export=NONE
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=laurenzane@uri.edu
-#SBATCH -D /data/putnamlab/shared/Express_Compare/stringtie_assembly
+#SBATCH -D /data/putnamlab/shared/Express_Compare/stringtie_assembly/Pacuta_BAM
 #SBATCH --exclusive #SBATCH -c 20
 
 module load StringTie/2.1.3-GCC-8.3.0

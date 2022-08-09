@@ -22,13 +22,11 @@ library("goseq")
 # library("MuMIn")
 # library("NbClust")
 # library("ComplexHeatmap")
-library("tidyverse")
 # library("tidyr")
 # library("lme4")
 # library("RColorBrewer")
 # library("magrittr")
 library("ggplot2")
-# library("goseq")
 library("pheatmap")
 # library("stats")
 # library("gridExtra")
@@ -44,14 +42,17 @@ Import the data files
 unlink("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Scripts", recursive = TRUE)
 setwd("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis")
 getwd()
+
 #treatment information
-treatmentinfo <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/Pacuta_RNA_seq_metadata.csv", header = TRUE, sep = ",")
+treatmentinfo <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/Pacuta_RNA_seq_metadata.csv", header = TRUE, sep = ",") # pacuta
+treatmentinfo <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Mcap/Mcap_RNAseq_metadata.csv", header = TRUE, sep = ",") # mcap
 rownames(treatmentinfo) <- treatmentinfo$sample_num
 str(treatmentinfo)
 head(treatmentinfo)
 
 #gene count matrix
-gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/PAcuta_gene_count_matrix.csv", row.names="gene_id"))
+gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/PAcuta_gene_count_matrix.csv", row.names="gene_id")) # pacuta
+gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Mcap/MCap_gene_matrix.csv", row.names="gene_id")) # mcap
 gcount<- tibble::rownames_to_column(gcount, "gene_id")
 dim(gcount)
 head(gcount)
@@ -59,7 +60,8 @@ colSums(gcount)
 colnames(gcount)
 
 # merge gene count matrix from Stringtie with merged GTF files from Stringtie
-gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_pacuta_merged.gtf", header=FALSE, sep="\t", skip = 2)
+gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_pacuta_merged.gtf", header=FALSE, sep="\t", skip = 2) # pacuta
+gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_mcap_merged.gtf", header=FALSE, sep="\t", skip = 2) # mcap
 colnames(gtf) <- c("scaffold", "Gene.Predict", "id", "gene.start","gene.stop", "pos1", "pos2","pos3", "gene") # set column names 
 head(gtf)
 gtf_transcript <- subset(gtf, id == "transcript")
@@ -120,22 +122,34 @@ all(rownames(treatmentinfo) %in% colnames(merged_count_data)) # must come out TR
 filt <- filterfun(pOverA(0.5,10))
 
 #create filter for the counts data
-gfilt <- genefilter(merged_gcount, filt)
+gfilt <- genefilter(gcount, filt)
 
 #identify genes to keep by count filter
-gkeep <- merged_gcount[gfilt,]
+gkeep <- gcount[gfilt,]
 
 #identify gene lists
 gn.keep <- rownames(gkeep)
 
 #gene count data filtered in PoverA, P percent of the samples have counts over A
-gcount_filt <- as.data.frame(merged_gcount[which(rownames(merged_gcount) %in% gn.keep),])
+gcount_filt <- as.data.frame(gcount[which(rownames(gcount) %in% gn.keep),])
 head(gcount_filt)
-dim(gcount_filt) # Pacuta 24573 x 6
+dim(gcount_filt) 
 
 # save gcount filt as a .csv file for GOSeq
 write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220608_Pacuta_filtered_gene_count.csv') 
 
+# subset for PolyA and RiboFree samples to compare differences in gene expression due to library prep method (remove rows with zeros and see what is left)
+
+PolyA.subset <- gcount_filt %>% select(1:3)
+
+PolyA.no.zeros <- filter(PolyA.subset, X1041.gtf > "0", X1471.gtf > "0", X1637.gtf  > "0")
+#19941                         
+                         
+  
+RiboFree.subset <- gcount_filt %>% select(4:6)
+
+RiboFree.no.zeros <- filter(RiboFree.subset, Sample1.gtf > "0", Sample2.gtf > "0", Sample3.gtf > "0" )
+#20463
 
 
 ```
@@ -303,7 +317,7 @@ pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnaly
 gcount.pairs <- pairs.panels(gcount,hist.col = "red", cex.labels = 1.25)
 dev.off()
 
-
+#
 # zeros in both data sets removed 
 gcount.no.zeros <- filter(gcount, X1041.gtf > "0", X1471.gtf > "0", X1637.gtf  > "0", Sample1.gtf > "0", Sample2.gtf > "0", Sample3.gtf > "0" )# use for pacuta
 
