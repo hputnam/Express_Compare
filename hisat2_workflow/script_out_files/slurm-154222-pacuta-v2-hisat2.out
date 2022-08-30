@@ -1,0 +1,102 @@
+13848286 reads; of these:
+  13848286 (100.00%) were paired; of these:
+    10326159 (74.57%) aligned concordantly 0 times
+    3293479 (23.78%) aligned concordantly exactly 1 time
+    228648 (1.65%) aligned concordantly >1 times
+    ----
+    10326159 pairs aligned concordantly 0 times; of these:
+      3529255 (34.18%) aligned discordantly 1 time
+    ----
+    6796904 pairs aligned 0 times concordantly or discordantly; of these:
+      13593808 mates make up the pairs; of these:
+        10134843 (74.55%) aligned 0 times
+        3090743 (22.74%) aligned exactly 1 time
+        368222 (2.71%) aligned >1 times
+63.41% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for 1041 Wed Jun 22 15:46:46 EDT 2022
+11754513 reads; of these:
+  11754513 (100.00%) were paired; of these:
+    8569154 (72.90%) aligned concordantly 0 times
+    3012353 (25.63%) aligned concordantly exactly 1 time
+    173006 (1.47%) aligned concordantly >1 times
+    ----
+    8569154 pairs aligned concordantly 0 times; of these:
+      2066912 (24.12%) aligned discordantly 1 time
+    ----
+    6502242 pairs aligned 0 times concordantly or discordantly; of these:
+      13004484 mates make up the pairs; of these:
+        10500241 (80.74%) aligned 0 times
+        2286985 (17.59%) aligned exactly 1 time
+        217258 (1.67%) aligned >1 times
+55.34% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for 1471 Wed Jun 22 15:50:05 EDT 2022
+12197956 reads; of these:
+  12197956 (100.00%) were paired; of these:
+    9347818 (76.63%) aligned concordantly 0 times
+    2687438 (22.03%) aligned concordantly exactly 1 time
+    162700 (1.33%) aligned concordantly >1 times
+    ----
+    9347818 pairs aligned concordantly 0 times; of these:
+      2141231 (22.91%) aligned discordantly 1 time
+    ----
+    7206587 pairs aligned 0 times concordantly or discordantly; of these:
+      14413174 mates make up the pairs; of these:
+        11798592 (81.86%) aligned 0 times
+        2378466 (16.50%) aligned exactly 1 time
+        236116 (1.64%) aligned >1 times
+51.64% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for 1637 Wed Jun 22 15:53:31 EDT 2022
+12023326 reads; of these:
+  12023326 (100.00%) were paired; of these:
+    11488922 (95.56%) aligned concordantly 0 times
+    449322 (3.74%) aligned concordantly exactly 1 time
+    85082 (0.71%) aligned concordantly >1 times
+    ----
+    11488922 pairs aligned concordantly 0 times; of these:
+      4165631 (36.26%) aligned discordantly 1 time
+    ----
+    7323291 pairs aligned 0 times concordantly or discordantly; of these:
+      14646582 mates make up the pairs; of these:
+        10304211 (70.35%) aligned 0 times
+        3604034 (24.61%) aligned exactly 1 time
+        738337 (5.04%) aligned >1 times
+57.15% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for Sample1 Wed Jun 22 15:56:26 EDT 2022
+7765823 reads; of these:
+  7765823 (100.00%) were paired; of these:
+    7537008 (97.05%) aligned concordantly 0 times
+    171006 (2.20%) aligned concordantly exactly 1 time
+    57809 (0.74%) aligned concordantly >1 times
+    ----
+    7537008 pairs aligned concordantly 0 times; of these:
+      2794564 (37.08%) aligned discordantly 1 time
+    ----
+    4742444 pairs aligned 0 times concordantly or discordantly; of these:
+      9484888 mates make up the pairs; of these:
+        6626078 (69.86%) aligned 0 times
+        2413029 (25.44%) aligned exactly 1 time
+        445781 (4.70%) aligned >1 times
+57.34% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for Sample2 Wed Jun 22 15:58:18 EDT 2022
+9474639 reads; of these:
+  9474639 (100.00%) were paired; of these:
+    9213300 (97.24%) aligned concordantly 0 times
+    201275 (2.12%) aligned concordantly exactly 1 time
+    60064 (0.63%) aligned concordantly >1 times
+    ----
+    9213300 pairs aligned concordantly 0 times; of these:
+      3309550 (35.92%) aligned discordantly 1 time
+    ----
+    5903750 pairs aligned 0 times concordantly or discordantly; of these:
+      11807500 mates make up the pairs; of these:
+        8440871 (71.49%) aligned 0 times
+        2847470 (24.12%) aligned exactly 1 time
+        519159 (4.40%) aligned >1 times
+55.46% overall alignment rate
+[bam_sort_core] merging from 0 files and 20 in-memory blocks...
+HISAT2 complete for Sample3 Wed Jun 22 16:00:35 EDT 2022

@@ -51,7 +51,9 @@ str(treatmentinfo)
 head(treatmentinfo)
 
 #gene count matrix
-gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Pacuta/PAcuta_gene_count_matrix.csv", row.names="gene_id")) # pacuta
+gcount <- as.data.frame(read.csv("../../stringtie_assembly/counts_matrices/Pacuta-v2/gene_count_matrix2.csv", row.names="gene_id")) # pacuta
+
+
 gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Mcap/MCap_gene_matrix.csv", row.names="gene_id")) # mcap
 gcount<- tibble::rownames_to_column(gcount, "gene_id")
 dim(gcount)
@@ -59,6 +61,12 @@ head(gcount)
 colSums(gcount)
 colnames(gcount)
 
+#transcript count matrix
+tcount <- as.data.frame(read.csv("../../stringtie_assembly/counts_matrices/Pacuta-v2/transcript_count_matrix2.csv"))
+```
+
+## may remove....
+```{r}
 # merge gene count matrix from Stringtie with merged GTF files from Stringtie
 gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_pacuta_merged.gtf", header=FALSE, sep="\t", skip = 2) # pacuta
 gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_mcap_merged.gtf", header=FALSE, sep="\t", skip = 2) # mcap
@@ -123,33 +131,31 @@ filt <- filterfun(pOverA(0.5,10))
 
 #create filter for the counts data
 gfilt <- genefilter(gcount, filt)
+tfilt <- genefilter(tcount, filt)
 
 #identify genes to keep by count filter
 gkeep <- gcount[gfilt,]
+tkeep <- tcount[tfilt,]
 
 #identify gene lists
 gn.keep <- rownames(gkeep)
+t.keep <- rownames(tkeep)
 
 #gene count data filtered in PoverA, P percent of the samples have counts over A
 gcount_filt <- as.data.frame(gcount[which(rownames(gcount) %in% gn.keep),])
 head(gcount_filt)
 dim(gcount_filt) 
-
+tcount_filt <- as.data.frame(gcount[which(rownames(tcount) %in% t.keep),])
+head(tcount_filt)
+dim(tcount_filt)
 # save gcount filt as a .csv file for GOSeq
-write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220608_Pacuta_filtered_gene_count.csv') 
+write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828_Pacuta-v2_filtered_gene_count.csv') 
 
-# subset for PolyA and RiboFree samples to compare differences in gene expression due to library prep method (remove rows with zeros and see what is left)
+# remove rows with zeros for all values 
 
-PolyA.subset <- gcount_filt %>% select(1:3)
+gcount.no.zeros <- gcount_filt %>% filter(X1041.2 > 0, X1471.2 > 0, X1637.2 > 0, Sample1.2 > 0, Sample2.2 > 0, Sample3.2 > 0 )
 
-PolyA.no.zeros <- filter(PolyA.subset, X1041.gtf > "0", X1471.gtf > "0", X1637.gtf  > "0")
-#19941                         
-                         
-  
-RiboFree.subset <- gcount_filt %>% select(4:6)
 
-RiboFree.no.zeros <- filter(RiboFree.subset, Sample1.gtf > "0", Sample2.gtf > "0", Sample3.gtf > "0" )
-#20463
 
 
 ```
@@ -158,7 +164,7 @@ RiboFree.no.zeros <- filter(RiboFree.subset, Sample1.gtf > "0", Sample2.gtf > "0
 #not using DESeq due to random factors, but can still use this to visualize clusters
 ```{r}
 #Set DESeq2 design
-gdds <- DESeqDataSetFromMatrix(countData = gcount_filt,
+gdds <- DESeqDataSetFromMatrix(countData = gcount.no.zeros,
                               colData = treatmentinfo,
                               design = ~method)
 ```
@@ -185,7 +191,7 @@ gvst <- vst(gdds, blind=FALSE) #apply a variance stabilizing transformation to m
 ```{r}
 gPCAdata <- plotPCA(gvst, intgroup = c("method"), returnData=TRUE)
 percentVar <- round(100*attr(gPCAdata, "percentVar")) #plot PCA of samples with all data
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaPCAplot.pdf")
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828Pacuta-v2-PCAplot.pdf")
 PCAplot <- ggplot(gPCAdata, aes(PC1, PC2, color=method)) + 
   geom_point(size=3) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
@@ -224,13 +230,14 @@ DEGSeq2.results <- results(DEGSeq2_wald, contrast=c("method","PolyA","RiboFree")
 head(DEGSeq2.results)
 sum(DEGSeq2.results$padj < 0.05, na.rm=TRUE) #How many adjusted p-values were less than 0.05
 # Pacuta 6479
+# pacuta v 2 no zeros 5407
 
 #create data frame with only DESeq2 DEG's with < 0.05 significance 
 
 DEGSeq2.sig.results <- subset(DEGSeq2.results, padj < 0.05)
 DEGSeq2.sig.results <- as.data.frame(DEGSeq2.sig.results)
 DEGSeq2.sig.results$gene_id <-rownames(DEGSeq2.sig.results)
-write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220608_PacutaDEGSeq2.sig.results.csv')  
+write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828_Pacuta-v2DEGSeq2.sig.results.csv')  
 
 ```
 
@@ -267,7 +274,7 @@ DEGSeq2_heatmap <- pheatmap(mat, scale= "row", legend=TRUE, annotation_legend=TR
                             show_colnames =TRUE,
                             cluster_cols = TRUE)
 
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/PacutaDEGSeq2_heatmap.pdf")
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828PacutaDEGSeq2-v2_heatmap.pdf")
 DEGSeq2_heatmap
 dev.off()
 
@@ -290,7 +297,7 @@ DEGSeq2_PCA_plot <- ggplot(DEGSeq2_PCAdata, aes(PC1, PC2, color=method)) +
         #panel.grid.minor = element_blank(), #Set minor gridlines
         axis.line = element_line(colour = "black"), #Set axes color
         plot.background=element_blank())+ #Set the plot background
-  ggtitle("Montipora captitata")
+  ggtitle("Pocillopora acuta version2")
 
 DEGSeq2_PCA_plot
 
@@ -300,7 +307,7 @@ ggsave(path = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAn
 
 # Save results
 
-write.csv(counts(DEGSeq2_list), "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220608_PacutaDEGSeq2_list_unique.csv")
+write.csv(counts(DEGSeq2_list), "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828_Pacuta-v2DEGSeq2_list_unique.csv")
 
 
 
