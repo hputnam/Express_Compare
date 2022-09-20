@@ -39,7 +39,7 @@ library("R.devices")
 Import the data files 
 ```{r}
 # set working directory to RAnalysis
-unlink("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Scripts", recursive = TRUE)
+
 setwd("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis")
 getwd()
 
@@ -52,69 +52,20 @@ head(treatmentinfo)
 
 #gene count matrix
 gcount <- as.data.frame(read.csv("../../stringtie_assembly/counts_matrices/Pacuta-v2/gene_count_matrix2.csv", row.names="gene_id")) # pacuta
+gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/counts_matrices/Mcap/redo/gene_count_matrix2.csv", row.names="gene_id")) # mcap
 
-
-gcount <- as.data.frame(read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Data/Mcap/MCap_gene_matrix.csv", row.names="gene_id")) # mcap
 gcount<- tibble::rownames_to_column(gcount, "gene_id")
 dim(gcount)
 head(gcount)
 colSums(gcount)
 colnames(gcount)
 
-#transcript count matrix
-tcount <- as.data.frame(read.csv("../../stringtie_assembly/counts_matrices/Pacuta-v2/transcript_count_matrix2.csv"))
 ```
-
-## may remove....
-```{r}
-# merge gene count matrix from Stringtie with merged GTF files from Stringtie
-gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_pacuta_merged.gtf", header=FALSE, sep="\t", skip = 2) # pacuta
-gtf <- read.csv("/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/stringtie_assembly/merged_gtf/stringtie_mcap_merged.gtf", header=FALSE, sep="\t", skip = 2) # mcap
-colnames(gtf) <- c("scaffold", "Gene.Predict", "id", "gene.start","gene.stop", "pos1", "pos2","pos3", "gene") # set column names 
-head(gtf)
-gtf_transcript <- subset(gtf, id == "transcript")
-
-# Make cols for gene and transcript ids
-gtf_transcript$gene_id <- sub(";.*", "", gtf_transcript$gene)
-gtf_transcript$gene_id <- gsub("gene_id", "", gtf_transcript$gene_id) #remove gene_id
-gtf_transcript$gene_id <- gsub(" ", "", gtf_transcript$gene_id) 
-
-
-gtf_transcript$transcript_id <-regmatches(gtf_transcript$gene,gregexpr("(?<=;).*",gtf_transcript$gene,perl=TRUE))
-gtf_transcript$transcript_id <- gsub("transcript_id", "", gtf_transcript$transcript_id) #remove transcript_id
-gtf_transcript$transcript_id <- gsub(";", "", gtf_transcript$transcript_id)
-gtf_transcript$transcript_id <- gsub(" ", "", gtf_transcript$transcript_id) 
-tail(gtf_transcript)
-
-# remove M from MSTRG in gene_id
-gtf_transcript$gene_id <- gsub("M","", gtf_transcript$gene_id)
-colnames(gtf_transcript)
-tail(gtf_transcript$gene_id)
-# merge count data with merged GTF data
-
-tail(gtf_transcript)
-length(intersect(gcount$gene_id, gtf_transcript$gene_id))# 5782
-print(gcount$gene_id)
-initial_merge <- merge(gcount, gtf_transcript, by = "gene_id")# merge gene counts matrix with merged GTF file 
-initial_merge <- initial_merge[,c(2:13, 23)]
-names(initial_merge)[names(initial_merge) == "transcript_id"] <- "gene_id"
-merged_count_data <- initial_merge 
-merged_count_data <- merged_count_data[-1] # removes duplicated gene_id column
-rownames(merged_count_data) <- merged_count_data$gene_id
-merged_gcount <- merged_count_data[, -c(7:16)] # updating name and removing extra columns
-
-
-# Make sure treatment info ='s the rows of count data
-all(rownames(treatmentinfo) %in% colnames(merged_count_data)) # must come out TRUE
-
-```
-
 
 ##### Pre-filter gene counts
 ## Pre-filtering our dataset to reduce the memory size dataframe, increase the speed of the transformation and testing functions, and improve quality of statistical analysis by removing low-coverage counts. Removed counts could represent outliers in the data and removing these improves sensitivity of statistical tests. We will filter out low coverage samples. 
 
 ```{r}
-
 #Do we want to do any filtering?
 
 #why do we want to filter?
@@ -131,40 +82,162 @@ filt <- filterfun(pOverA(0.5,10))
 
 #create filter for the counts data
 gfilt <- genefilter(gcount, filt)
-tfilt <- genefilter(tcount, filt)
+
 
 #identify genes to keep by count filter
 gkeep <- gcount[gfilt,]
-tkeep <- tcount[tfilt,]
+
 
 #identify gene lists
 gn.keep <- rownames(gkeep)
-t.keep <- rownames(tkeep)
+
 
 #gene count data filtered in PoverA, P percent of the samples have counts over A
 gcount_filt <- as.data.frame(gcount[which(rownames(gcount) %in% gn.keep),])
 head(gcount_filt)
 dim(gcount_filt) 
-tcount_filt <- as.data.frame(gcount[which(rownames(tcount) %in% t.keep),])
-head(tcount_filt)
-dim(tcount_filt)
-# save gcount filt as a .csv file for GOSeq
-write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828_Pacuta-v2_filtered_gene_count.csv') 
 
+# save gcount filt as a .csv file for GOSeq
+write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919_Pacuta2_filtered_gene_count.csv')
+```
+
+## create a scatterplot to visualize gene counts 
+
+```{r}
+# plot gene abundances for filted gene counts
+gcount_filt <- cbind(rownames(gcount_filt), data.frame(gcount_filt, row.names=NULL))
+colnames(gcount_filt) <- c("gene_id", "1041", "1548", "1628", "Sample4", "Sample5", "Sample6") # mcap DOUBLE CHECK
+colnames(gcount_filt) <- c("gene_id", "1041", "1471", "1637", "Sample1", "Sample2", "Sample3") # pacuta 
+
+gcount_filt_long <- gcount_filt %>%
+  pivot_longer(2:7,
+               names_to = "sample", values_to = "gene_count") # by using a pivot function we can make our data "long format" so it is easier to plot 
+gcount_filt_long_plot <- ggplot(gcount_filt_long, aes(x=gene_id, y=gene_count,color=sample)) +
+  geom_point() +
+  labs(x = "gene id", y = "gene abundance")+
+  scale_color_manual(values=c("pink","pink","pink","orange","orange","orange"))
+
+print(gcount_filt_long_plot)
+
+# ggsave("Pacuta-gcount-filt-histogram.pdf") not a figure we will keep for ms
+## note: isolate high abundance transcripts and find out what they are 
+```
+## this is optional -- may delete for final script 
+
+```{r}
 # remove rows with zeros for all values 
 
 gcount.no.zeros <- gcount_filt %>% filter(X1041.2 > 0, X1471.2 > 0, X1637.2 > 0, Sample1.2 > 0, Sample2.2 > 0, Sample3.2 > 0 )
+gcount.no.zeros <- gcount_filt %>% filter(X1101.2 > 0, X1548.2 > 0, X1628.2 > 0, Sample4.2 > 0, Sample5.2 > 0, Sample6.2 > 0 )
+
+# subset for rows that have all zeros for one kit and not the other 
+
+gcount.polya.zero <- gcount_filt %>% filter("1101" == 0)
+polya_zero_long <- gcount.polya.zero %>%
+  pivot_longer(2:7,
+               names_to = "sample", values_to = "gene_count")
+view(polya_zero_long)
+
+high_abundance_long_plot <- ggplot(abundance_long, aes(x=gene_id, y=gene_count,color=sample)) +
+  geom_point() + 
+  ggtitle("*Pocillopora acuta* highly abundant gene counts")+
+  labs(x = "gene id", y = "gene abundance")+
+  scale_color_manual(values=c("pink","pink","pink","orange","orange","orange"))
+print(high_abundance_long_plot)
+```
+## this is optional -- may delete for final script 
+
+```{r}
+gcount.ribofree <- gcount_filt %>% filter(Sample4.2.gtf == 0, Sample5.2.gtf == 0, Sample6.2.gtf == 0 )
+
+# subset for highly abundant transcripts
+
+gcount.high.abundance <- gcount_filt %>% filter(1101 >= 336, 1548 >= 306, 1628 >= 264, Sample4 >= 30, Sample5 >= 27, Sample6 >= 29)
+gcount.high.abundance <- cbind(rownames(gcount.high.abundance), data.frame(gcount.high.abundance, row.names=NULL))
+colnames(gcount.high.abundance) <- c("gene_id", "Sample1101", "1548", "1628", "Sample4", "Sample5", "Sample6")
+
+abundance_long <- gcount.high.abundance %>%
+  pivot_longer(2:7,
+               names_to = "sample", values_to = "gene_count")
+view(abundance_long)
+
+high_abundance_long_plot <- ggplot(abundance_long, aes(x=gene_id, y=gene_count,color=sample)) +
+  geom_point() + 
+  ggtitle("*Pocillopora acuta* highly abundant gene counts")+
+  labs(x = "gene id", y = "gene abundance")+
+  scale_color_manual(values=c("pink","pink","pink","orange","orange","orange"))
+print(high_abundance_long_plot)
+
+ggsave("Pacuta-high-abundance-histogram.pdf")
+```
+
+# basic heatmap of correlation between all possible columns 
+```{r}
+library(ggcorrplot)
+library(Hmisc)
 
 
+corr_plot <- ggcorrplot(cor(gcount_filt[2:7])) 
+print(corr_plot)
+ggsave("20220919_Pacuta_filtered_genecount_corr_plot.pdf")
+```
 
+# optional heatmap -- might delete
+```{r}
+high_abundance_corr_plot <- ggcorrplot(cor(gcount.high.abundance[2:7]))+
+  ggtitle("Pocillopora acuta highly abundant counts correlation by sample")
+ggsave("20220919_Pacuta_high_abundance_corr_plot.pdf")
+print(high_abundance_corr_plot)
 
 ```
 
-#Create a DESeqDataSet design from gene count matrix and labels. Here we set the design to look at treatment to test for any differences in gene expression attributed to library prep method.
-#not using DESeq due to random factors, but can still use this to visualize clusters
+# create a pairs panel for P over A counts
 ```{r}
-#Set DESeq2 design
-gdds <- DESeqDataSetFromMatrix(countData = gcount.no.zeros,
+library(psych)
+library(graphics)
+# creating pairs panels 
+
+# unfiltered from counts data 
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919acuta_PoverApairs.pdf")
+pairs.panels(gcount_filt[2:7], hist.col = "pink", cex.labels = 1.25)
+dev.off()
+```
+
+# options may delete 
+
+```{r}
+# zeros in both data sets removed 
+gcount.no.zeros <- filter(gcount, X1041.gtf > "0", X1471.gtf > "0", X1637.gtf  > "0", Sample1.gtf > "0", Sample2.gtf > "0", Sample3.gtf > "0" )# use for pacuta
+
+gcount.no.zeros <- filter(gcount, X1101 > "0", X1548 > "0", X1628  > "0", Sample4 > "0", Sample5 > "0", Sample6 > "0" ) # use for mcap
+
+## now create pairs panels
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610_Pacuta_nozeros_pairs.pdf")
+no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
+dev.off()
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Mcap/20220610_Mcap_nozeros_pairs.pdf")
+no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
+dev.off()
+
+
+# pairs panel using filtered for p over a (0.5,10)
+
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610_Pacuta_filtered_pairs.pdf")
+gcount.filt.pairs <- pairs.panels(gcount_filt, hist.col = "orange", cex.labels = 1.25)
+dev.off()
+
+```
+
+ Create a DESeqDataSet design from gene count matrix and labels. Here we set the design to look at treatment to test for any differences in gene expression attributed to library prep method.
+ not using DESeq due to random factors, but can still use this to visualize clusters
+
+```{r}
+# Set DESeq2 design
+
+gdds <- DESeqDataSetFromMatrix(countData = gcount_filt,
                               colData = treatmentinfo,
                               design = ~method)
 ```
@@ -191,7 +264,7 @@ gvst <- vst(gdds, blind=FALSE) #apply a variance stabilizing transformation to m
 ```{r}
 gPCAdata <- plotPCA(gvst, intgroup = c("method"), returnData=TRUE)
 percentVar <- round(100*attr(gPCAdata, "percentVar")) #plot PCA of samples with all data
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828Pacuta-v2-PCAplot.pdf")
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919-Pacuta2-PCAplot.pdf")
 PCAplot <- ggplot(gPCAdata, aes(PC1, PC2, color=method)) + 
   geom_point(size=3) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
@@ -230,14 +303,18 @@ DEGSeq2.results <- results(DEGSeq2_wald, contrast=c("method","PolyA","RiboFree")
 head(DEGSeq2.results)
 sum(DEGSeq2.results$padj < 0.05, na.rm=TRUE) #How many adjusted p-values were less than 0.05
 # Pacuta 6479
-# pacuta v 2 no zeros 5407
+
+sum(DEGSeq2.results$padj < 0.05 & DEGSeq2.results$log2FoldChange > 0, na.rm=TRUE) # how many adjusted p-values were more than 0.05 
+
+sum(DEGSeq2.results$padj < 0.05 & DEGSeq2.results$log2FoldChange < 0, na.rm=TRUE) # how many adjusted p-values were less than 0.05
+
 
 #create data frame with only DESeq2 DEG's with < 0.05 significance 
 
 DEGSeq2.sig.results <- subset(DEGSeq2.results, padj < 0.05)
 DEGSeq2.sig.results <- as.data.frame(DEGSeq2.sig.results)
 DEGSeq2.sig.results$gene_id <-rownames(DEGSeq2.sig.results)
-write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828_Pacuta-v2DEGSeq2.sig.results.csv')  
+write.csv(DEGSeq2.sig.results, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919_Pacuta-DEGSeq2.sig.results.csv')  
 
 ```
 
@@ -251,6 +328,7 @@ DEGSeq2 <- rownames(DEGSeq2.results.all) # list all gene names
 DEGSeq2 <- unique(DEGSeq2) # select only unique gene names 
 DEGSeq2_list <- gdds[which(rownames(gdds) %in% DEGSeq2)] # filter gdds DESeq2 object by unique gene names
 dim(DEGSeq2_list) # 15 x 15
+view(DEGSeq2_list)
 print(counts(DEGSeq2_list))
 
 # As determined above, size factors all less than 4, so proceed with VST
@@ -274,7 +352,7 @@ DEGSeq2_heatmap <- pheatmap(mat, scale= "row", legend=TRUE, annotation_legend=TR
                             show_colnames =TRUE,
                             cluster_cols = TRUE)
 
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220828PacutaDEGSeq2-v2_heatmap.pdf")
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919-Pacuta2_heatmap.pdf")
 DEGSeq2_heatmap
 dev.off()
 
@@ -297,7 +375,7 @@ DEGSeq2_PCA_plot <- ggplot(DEGSeq2_PCAdata, aes(PC1, PC2, color=method)) +
         #panel.grid.minor = element_blank(), #Set minor gridlines
         axis.line = element_line(colour = "black"), #Set axes color
         plot.background=element_blank())+ #Set the plot background
-  ggtitle("Pocillopora acuta version2")
+  ggtitle("Pocillopora acuta DEG")
 
 DEGSeq2_PCA_plot
 
@@ -312,7 +390,27 @@ write.csv(counts(DEGSeq2_list), "/Users/laurenzane/Desktop/Putnam_Lab/Projects/E
 
 
 ```
+```{r}
+# subset gcount_filt for DEGs from DEG dataframe to create the basic heatmap and the pairs panel
+rownames(gcount_filt) # check that rownames have been retained from original loading of df
+DEGSeq_list <- rownames(DEGSeq2.sig.results) # create a vector from the rownames from the significant results
+DEG <- as.data.frame(gcount_filt[which(rownames(gcount_filt) %in% DEGSeq_list),])
 
+```
+
+# repeat basic heatmap for DEGs
+```{r}
+library(ggcorrplot)
+library(Hmisc)
+
+
+corr_plot <- ggcorrplot(cor(DEG[1:6])) 
+print(corr_plot)
+ggsave("20220919_Pacuta_DEG_corr_plot.pdf")
+```
+
+
+# repeat pairs panel for DEGs
 ```{r}
 library(psych)
 library(graphics)
@@ -320,34 +418,13 @@ library(graphics)
 
 # unfiltered from counts data 
 
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610Pacuta_unfilteredpairs.pdf")
-gcount.pairs <- pairs.panels(gcount,hist.col = "red", cex.labels = 1.25)
+pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919_Pacuta_DEGpairs.pdf")
+pairs.panels(DEG[1:6], hist.col = "pink", cex.labels = 1.25)
 dev.off()
-
-#
-# zeros in both data sets removed 
-gcount.no.zeros <- filter(gcount, X1041.gtf > "0", X1471.gtf > "0", X1637.gtf  > "0", Sample1.gtf > "0", Sample2.gtf > "0", Sample3.gtf > "0" )# use for pacuta
-
-gcount.no.zeros <- filter(gcount, X1101 > "0", X1548 > "0", X1628  > "0", Sample4 > "0", Sample5 > "0", Sample6 > "0" ) # use for mcap
-
-## now create pairs panels
-
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610_Pacuta_nozeros_pairs.pdf")
-no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
-dev.off()
-
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Mcap/20220610_Mcap_nozeros_pairs.pdf")
-no.zeros.pairs <- pairs.panels(gcount.no.zeros, hist.col = "pink", cex.labels = 1.25)
-dev.off()
-
-
-# pairs panel using filtered for p over a (0.5,10)
-
-pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220610_Pacuta_filtered_pairs.pdf")
-gcount.filt.pairs <- pairs.panels(gcount_filt, hist.col = "orange", cex.labels = 1.25)
-dev.off()
-
 ```
+
+
+
 # GO Seq preparing and loading relevant dataframes
 ```{r}
 library(goseq) #installing package
