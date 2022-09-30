@@ -99,6 +99,25 @@ dim(gcount_filt)
 
 # save gcount filt as a .csv file for GOSeq
 write.csv(gcount_filt, '/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919_Pacuta2_filtered_gene_count.csv')
+
+# check maximum values for each sample and record corresponding row name 
+
+max(gcount_filt)
+max(gcount_filt$X1041.2)
+max(gcount_filt$X1471.2)
+max(gcount_filt$X1637.2)
+max(gcount_filt$Sample1.2)
+max(gcount_filt$Sample2.2)
+max(gcount_filt$Sample3.2)
+gcount_filt[which(gcount_filt$X1041.2 == 218587 | gcount_filt$X1471.2 == 244867 | gcount_filt$X1637.2 == 203630 | gcount_filt$Sample1.2 == 55184), ]
+
+gcount_filt <- subset(gcount_filt, X1041.2 != 218587)
+
+max(gcount_filt_no_max)
+# MSTRG.4996
+data[ which( data$V1 > 2 | data$V2 < 4) , ]
+max(gcount_filt$X1041.2)
+gcount_filt[which(gcount_filt$X1041.2 == 218587), ]
 ```
 
 ## create a scatterplot to visualize gene counts 
@@ -177,8 +196,9 @@ library(ggcorrplot)
 library(Hmisc)
 
 
-corr_plot <- ggcorrplot(cor(gcount_filt[2:7])) 
-print(corr_plot)
+corr <- cor(gcount_filt)
+print(corr)
+ggcorrplot(corr, hc.order = TRUE, outline.color = "white")
 ggsave("20220919_Pacuta_filtered_genecount_corr_plot.pdf")
 ```
 
@@ -200,7 +220,7 @@ library(graphics)
 # unfiltered from counts data 
 
 pdf(file = "/Users/laurenzane/Desktop/Putnam_Lab/Projects/Express_Compare/RAnalysis/Output/Pacuta/20220919acuta_PoverApairs.pdf")
-pairs.panels(gcount_filt[2:7], hist.col = "pink", cex.labels = 1.25)
+pairs.panels(gcount_filt[1:6], hist.col = "pink", cex.labels = 1.25)
 dev.off()
 ```
 
